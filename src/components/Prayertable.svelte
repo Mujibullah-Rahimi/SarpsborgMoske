@@ -1,6 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
     import { chosendate, incrementDate, decrementDate } from '$lib/date/date'
+	
+	
     
     let currentDate;
 	let prayerTimes = {
@@ -22,7 +24,7 @@
 
 	// Function to load and parse the CSV file
 	async function loadCsvData() {
-		const response = await fetch('/src/lib/assets/bonnetider2024test.csv'); // Replace with the actual path to the CSV file
+		const response = await fetch('/assets/bonnetider2024test.csv'); 
 		const csvData = await response.text(); // Get CSV content as text
 
 		return parseCsv(csvData);
