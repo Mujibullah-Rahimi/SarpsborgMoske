@@ -49,7 +49,7 @@
 				<div class="mobile-nav-opened-sidebar">
 					<div class="mobile-nav-sidebar-content">
 						<p><a href="/#top" on:click={handleMenuChoice}>Hjem</a></p>
-						<p><a href="/#Bønnetider" on:click={handleMenuChoice}>Bønnetider</a></p>
+						<p><a href="/#Bønnetabell" on:click={handleMenuChoice}>Bønnetabell</a></p>
 						<p><a href="/#OmMCC" on:click={handleMenuChoice}>Om MCC</a></p>
 						<p><a href="/#Innmelding" on:click={handleMenuChoice}>Innmelding</a></p>
 						<p><a href="/#Kontakt" on:click={handleMenuChoice}>Kontakt</a></p>
