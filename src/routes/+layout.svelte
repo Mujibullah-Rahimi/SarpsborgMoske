@@ -1,7 +1,10 @@
 <script>
-    import Footer from "../components/Footer.svelte";
-import Navbar from "../components/Navbar.svelte";
+	import Footer from '../components/footer/Footer.svelte';
+	import Mobilefooter from '../components/footer/Mobilefooter.svelte';
+	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
+	import Navbar from '../components/navbar/Navbar.svelte';
 </script>
+
 <svelte:head>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
@@ -26,46 +29,53 @@ import Navbar from "../components/Navbar.svelte";
 		rel="stylesheet"
 	/>
 </svelte:head>
-<Navbar/>
+<Navbar />
+<Mobilenavbar />
 <slot />
 <footer>
 	<Footer />
+	<Mobilefooter />
 </footer>
+
 <style>
-    :global(*) {
+	:global(*) {
 		--white: #fefefd;
 		--black: #231b1b;
 		--green-primary: #1da599;
-		--green-secondary: #d0fae2; 
+		--green-secondary: #d0fae2;
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
 		scroll-behavior: smooth;
-		
 	}
-	:global(p, input){
-		font-family: 'Poppins';		
+	:global(p, input) {
+		font-family: 'Poppins';
 		src: local('$lib/fontfaces/Poppins-Regular.ttf') format('truetype');
 		font-display: swap;
 	}
-	:global(h1){
-		font-family: 'Poppins';		
+	:global(h1) {
+		font-family: 'Poppins';
 		src: local('$lib/fontfaces/Poppins-Light.ttf') format('truetype');
 		font-display: swap;
 	}
-	:global(h3){
-		font-family: 'Poppins';		
+	:global(h3) {
+		font-family: 'Poppins';
 		src: local('$lib/fontfaces/Poppins-SemiMedium.ttf') format('truetype');
 		font-display: swap;
 	}
-	:global(h2){
-		font-family: 'Roboto';		
+	:global(h2) {
+		font-family: 'Roboto';
 		src: local('$lib/fontfaces/Roboto-Light.ttf') format('truetype');
 		font-display: swap;
 	}
-	:global(h2){
-		font-family: 'Roboto';		
+	:global(h2) {
+		font-family: 'Roboto';
 		src: local('$lib/fontfaces/Roboto-Regular.ttf') format('truetype');
 		font-display: swap;
+	}
+	footer {
+		left: 0;
+		position: absolute;
+		width: 100vw;
 	}
 </style>

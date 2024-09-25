@@ -1,9 +1,9 @@
 <script>
 	import GeoAltMcc from '$lib/icons/geo-alt-mcc.svelte';
 
-	import Quranpic from '$lib/images/quran_300.jpg'
-	import Charitypic from '$lib/images/veldedighet_300.jpg'
-	import Fridaypic from '$lib/images/friday_prayer_300.jpg'
+	import Quranpic from '$lib/images/quran_300.jpg';
+	import Charitypic from '$lib/images/veldedighet_300.jpg';
+	import Fridaypic from '$lib/images/friday_prayer_300.jpg';
 	import ButtonPrimary from '../components/ButtonPrimary.svelte';
 	import ButtonSecondary from '../components/ButtonSecondary.svelte';
 	import interiorImage from '$lib/images/interior.png';
@@ -13,189 +13,200 @@
 	import Eventcard from '../components/Eventcard.svelte';
 	import Logo from '../components/Logo.svelte';
 	import Contactcard from '../components/Contactcard.svelte';
-
+	import MediaQuery from '../components/MediaQuery.svelte';
 </script>
 
 <svelte:head></svelte:head>
 
-<body>
-	<div class="hero-section" id="Hjem">
-		<div class="left">
-			<div class="address">
-				<div class="geo-icon">
-					<GeoAltMcc width="20" />
+<MediaQuery query="(min-width: 936px)" let:matches>
+	{#if matches}
+		<body>
+			<div class="hero-section" id="Hjem">
+				<div class="left">
+					<div class="address">
+						<div class="geo-icon">
+							<GeoAltMcc width="20" />
+						</div>
+						<div class="address-text">
+							<p>
+								<a
+									href="https://maps.app.goo.gl/3dYziNFCMDHiX2eB8"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Håkons gate 2, 1721 Sarpsborg
+								</a>
+							</p>
+						</div>
+					</div>
+					<div class="title">
+						<h1>I Allahs navn, den mest nådige, den mest barmhjertige</h1>
+					</div>
+					<div class="buttons">
+						<div class="contact">
+							<ButtonSecondary text="Kontakt" fontSize="1.25em" link="/#Kontakt" />
+						</div>
+						<div class="join">
+							<ButtonPrimary text="Bli medlem" fontSize="1.25em" link="/#Innmelding" />
+						</div>
+					</div>
 				</div>
-				<div class="address-text">
-					<p>
-						<a
-							href="https://maps.app.goo.gl/3dYziNFCMDHiX2eB8"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Håkons gate 2, 1721 Sarpsborg
-						</a>
-					</p>
+				<div class="right">
+					<div class="image">
+						<img src={interiorImage} alt="interior" />
+					</div>
 				</div>
 			</div>
-			<div class="title">
-				<h1>I Allahs navn, den mest nådige, den mest barmhjertige</h1>
-			</div>
-			<div class="buttons">
-				<div class="contact">
-					<ButtonSecondary text="Kontakt" fontSize="1.25em" link="/#Kontakt"/>
-				</div>
-				<div class="join">
-					<ButtonPrimary text="Bli medlem" fontSize="1.25em" link="/#Innmelding" />
-				</div>
-			</div>
-		</div>
-		<div class="right">
-			<div class="image">
-				<img src={interiorImage} alt="interior" />
-			</div>
-		</div>
-	</div>
 
-	<div class="prayertime-section" id="Bønnetabell">
-		<div class="date">
-			<div class="calendar-icon">
-				<CalendarMcc width="20" />
-			</div>
-			<div class="date-text">
-				<p>21. September 2024</p>
-				<!-- make clickable to change date -->
-			</div>
-		</div>
-		<div class="prayer-table">
-			<Prayertable />
-		</div>
-		<div class="download-prayertimes-container">
-			<div class="download-prayertimes">
-				<div class="download-icon">
-					<DownloadMcc width="20" />
+			<div class="prayertime-section" id="Bønnetabell">
+				<div class="date">
+					<div class="calendar-icon">
+						<CalendarMcc width="20" />
+					</div>
+					<div class="date-text">
+						<p>21. September 2024</p>
+						<!-- make clickable to change date -->
+					</div>
 				</div>
-				<div class="download-text">
-					<p>
-						<a href="/assets/bonnetider2024test.csv" download>
-							Last ned bønnetabell 2024
-						</a>
-					</p>
+				<div class="prayer-table">
+					<Prayertable />
+				</div>
+				<div class="download-prayertimes-container">
+					<div class="download-prayertimes">
+						<div class="download-icon">
+							<DownloadMcc width="20" />
+						</div>
+						<div class="download-text">
+							<p>
+								<a href="/assets/bonnetider2024test.csv" download> Last ned bønnetabell 2024 </a>
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
-	<div class="about-section" id="OmMCC">
-		<div class="about-mcc">
-			<div class="background-logo">
-				<Logo width="500px" opacity="0.05" />
-			</div>
-			<div class="title">
-				<h1>Muslim Culture Center</h1>
-			</div>
-			<div class="text-one">
-				<p>
-					Som første moske i Sarpsborg har vi i MCC tjent samfunnet ved å skape et sted for
-					tilbedelse, utdannelse og opplæring og støtte.
-				</p>
-			</div>
-			<div class="text-two">
-				<p>
-					Vi er dedikerte til å fremme enhet, fremme fred og berike liv gjennom våre ulike
-					programmer og initiativer.
-				</p>
-			</div>
-		</div>
-		<div class="programmes">
-			<div class="programmes-title">
-				<h1>Utforsk våre programmer</h1>
-				<div class="text">
-					<p>
-						Velkommen til vår moskè hvor vi tilbyr en rekke programmer og tjenester for å dekke vårt
-						muslimske samfunn sine behov, vi strever for å opprette et miljø alle føler seg velkomne
-						hos.
-					</p>
+			<div class="about-section" id="OmMCC">
+				<div class="about-mcc">
+					<div class="background-logo">
+						<Logo width="500px" opacity="0.05" />
+					</div>
+					<div class="title">
+						<h1>Muslim Culture Center</h1>
+					</div>
+					<div class="text-one">
+						<p>
+							Som første moske i Sarpsborg har vi i MCC tjent samfunnet ved å skape et sted for
+							tilbedelse, utdannelse og opplæring og støtte.
+						</p>
+					</div>
+					<div class="text-two">
+						<p>
+							Vi er dedikerte til å fremme enhet, fremme fred og berike liv gjennom våre ulike
+							programmer og initiativer.
+						</p>
+					</div>
 				</div>
-			</div>
-			<div class="programmes-events">
-				<div class="event">
-					<Eventcard
-						source={Quranpic}
-						altText="Quran undervisning for barn"
-						title="Undervisning for barn"
-						text="Quranskole for barn over 7år hver helg kl 13-15. 
+				<div class="programmes">
+					<div class="programmes-title">
+						<h1>Utforsk våre programmer</h1>
+						<div class="text">
+							<p>
+								Velkommen til vår moskè hvor vi tilbyr en rekke programmer og tjenester for å dekke
+								vårt muslimske samfunn sine behov, vi strever for å opprette et miljø alle føler seg
+								velkomne hos.
+							</p>
+						</div>
+					</div>
+					<div class="programmes-events">
+						<div class="event">
+							<Eventcard
+								source={Quranpic}
+								altText="Quran undervisning for barn"
+								title="Undervisning for barn"
+								text="Quranskole for barn over 7år hver helg kl 13-15. 
 						  Kombinert med ulike aktiviteter"
-					/>
-				</div>
-				<div class="event">
-					<Eventcard
-						source={Charitypic}
-						altText="Måter du kan gi veldedighet"
-						title="Måter du kan gi sadaqah"
-						text="Se ulike måter du kan gi veldedighet på, for å nytte deg i dette liv og neste"
-					/>
-				</div>
-				<div class="event">
-					<Eventcard
-						source={Fridaypic}
-						altText="Fredagsbønn"
-						title="Fredagsbønn"
-						text="Velkommen til fredagsbønn! Delta i fellesskapet og styrk din tro med viktig påminnelse og felles bønn"
-					/>
+							/>
+						</div>
+						<div class="event">
+							<Eventcard
+								source={Charitypic}
+								altText="Måter du kan gi veldedighet"
+								title="Måter du kan gi sadaqah"
+								text="Se ulike måter du kan gi veldedighet på, for å nytte deg i dette liv og neste"
+							/>
+						</div>
+						<div class="event">
+							<Eventcard
+								source={Fridaypic}
+								altText="Fredagsbønn"
+								title="Fredagsbønn"
+								text="Velkommen til fredagsbønn! Delta i fellesskapet og styrk din tro med viktig påminnelse og felles bønn"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
-	<div class="membership-section" id="Innmelding">
-		<div class="content">
-			<div class="title">
-				<h1>Bli en del av noe stort – bli med i dag!</h1>
+			<div class="membership-section" id="Innmelding">
+				<div class="content">
+					<div class="title">
+						<h1>Bli en del av noe stort – bli med i dag!</h1>
+					</div>
+					<div class="text">
+						<p>
+							Bli en del av et inkluderende fellesskap der vi sammen søker kunnskap, fred og
+							samhold.
+							<br />Her er alle velkomne – uansett bakgrunn,
+							<span class="highlight-text">meld deg inn</span> i dag og bidra til et godt miljø for alle!
+						</p>
+					</div>
+				</div>
+				<div class="buttons">
+					<ButtonSecondary fontSize="2em" text="Støtt MCC" />
+					<ButtonPrimary fontSize="2em" text="Bli medlem" />
+				</div>
 			</div>
-			<div class="text">
-				<p>
-					Bli en del av et inkluderende fellesskap der vi sammen søker kunnskap, fred og samhold.
-					<br />Her er alle velkomne – uansett bakgrunn,
-					<span class="highlight-text">meld deg inn</span> i dag og bidra til et godt miljø for alle!
-				</p>
-			</div>
-		</div>
-		<div class="buttons">
-			<ButtonSecondary fontSize="2em" text="Støtt MCC" />
-			<ButtonPrimary fontSize="2em" text="Bli medlem" />
-		</div>
-	</div>
 
-	<div class="contact-section" id="Kontakt">
-		<div class="contact">
-			<div class="title">
-				<h1>Kontakt Oss</h1>
+			<div class="contact-section" id="Kontakt">
+				<div class="contact">
+					<div class="title">
+						<h1>Kontakt Oss</h1>
+					</div>
+					<div class="text">
+						<p>
+							Har du spørsmål eller ønsker mer informasjon? <br />Ta gjerne kontakt med oss – vi er
+							her for å hjelpe deg. Sammen bygger vi et inkluderende og støttende fellesskap.
+						</p>
+					</div>
+				</div>
+				<div class="channels">
+					<div class="channel">
+						<Contactcard channel="email" title="Epost" text="" info="kontakt@sarpsborgmoske.com" />
+					</div>
+					<div class="channel">
+						<Contactcard channel="phone" title="Telefon" text="" info="+47 489 25 590" />
+					</div>
+					<div class="channel">
+						<Contactcard
+							channel="address"
+							title="Adresse"
+							text=""
+							info="Håkons gate 2, 1712 Sarpsborg"
+						/>
+					</div>
+				</div>
 			</div>
-			<div class="text">
-				<p>
-					Har du spørsmål eller ønsker mer informasjon? <br />Ta gjerne kontakt med oss – vi er her
-					for å hjelpe deg. Sammen bygger vi et inkluderende og støttende fellesskap.
-				</p>
-			</div>
-		</div>
-		<div class="channels">
-			<div class="channel">
-				<Contactcard channel="email" title="Epost" text="" info="kontakt@sarpsborgmoske.com" />
-			</div>
-			<div class="channel">
-				<Contactcard channel="phone" title="Telefon" text="" info="+47 489 25 590" />
-			</div>
-			<div class="channel">
-				<Contactcard
-					channel="address"
-					title="Adresse"
-					text=""
-					info="Håkons gate 2, 1712 Sarpsborg"
-				/>
-			</div>
-		</div>
-	</div>
-</body>
+		</body>
+	{/if}
+</MediaQuery>
+
+<MediaQuery query="(max-width: 935px)" let:matches>
+	{#if matches}
+		<body>
+			<div class="mobile-herosection"></div>
+		</body>
+	{/if}
+</MediaQuery>
 
 <style lang="scss">
 	body {
@@ -449,4 +460,11 @@
 			}
 		}
 	}
+
+	//------------ CSS FOR MOBILE ------------//
+
+	.mobile-herosection{
+			height: 200vh;
+			// background-color: red;
+		}
 </style>

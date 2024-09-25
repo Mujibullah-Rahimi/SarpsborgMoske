@@ -1,7 +1,7 @@
 <script>
-	import ButtonPrimary from './ButtonPrimary.svelte';
-	import Logo from './Logo.svelte';
-	import MediaQuery from './MediaQuery.svelte';
+	import ButtonPrimary from '../ButtonPrimary.svelte';
+	import Logo from '../Logo.svelte';
+	import MediaQuery from '../MediaQuery.svelte';
 </script>
 
 <MediaQuery query="(min-width: 936px)" let:matches>
