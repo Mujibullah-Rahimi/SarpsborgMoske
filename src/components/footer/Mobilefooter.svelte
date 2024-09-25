@@ -4,86 +4,94 @@
 	import InstagramMcc from '$lib/icons/instagram-mcc.svelte';
 	import ButtonSecondary from '../ButtonSecondary.svelte';
 	import ButtonPrimary from '../ButtonPrimary.svelte';
+	import MediaQuery from '../MediaQuery.svelte';
 </script>
 
-<footer>
-	<div class="container">
-		<div class="content">
-			<div class="logo">
-				<Logo width="64" />
-			</div>
-			<div class="channels">
-				<h3>Følg oss</h3>
-				<ul>
-					<li>
+<MediaQuery query="(max-width: 935px)" let:matches>
+	{#if matches}
+		<footer>
+			<div class="container">
+				<div class="content">
+					<div class="bg-logo">
+						<Logo width="300" opacity="0.05" />
+					</div>
+					<div class="logo">
+						<Logo width="64" />
+					</div>
+					<div class="channels">
+						<h3>Følg oss</h3>
+						<ul>
+							<li>
+								<p>
+									<FacebookMcc width="16" />
+									<a
+										href="https://www.facebook.com/profile.php?id=61557985585676&locale=nb_NO"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Facebook</a
+									>
+								</p>
+							</li>
+							<li>
+								<p>
+									<InstagramMcc width="16" />
+									<a
+										href="https://www.instagram.com/rahimisolutions/"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Instagram
+									</a>
+								</p>
+							</li>
+						</ul>
+					</div>
+					<div class="sitemap">
+						<h3>Sitemap</h3>
+						<ul>
+							<li><p><a href="/#top">Tilbake til toppen</a></p></li>
+							<li><p><a href="/#Bønnetabell">Bønnetider</a></p></li>
+							<li><p><a href="/#Innmelding">Innmelding</a></p></li>
+							<li><p><a href="/#OmMCC">Programmer</a></p></li>
+							<li><p><a href="/#Kontakt">Kontakt</a></p></li>
+							<li><p><a href="/#bottom">Nyhetsbrev</a></p></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="newsletter">
+					<div class="text">
 						<p>
-							<FacebookMcc width="16" />
-							<a
-								href="https://www.facebook.com/profile.php?id=61557985585676&locale=nb_NO"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Facebook</a
-							>
+							Abonner på vårt nyhetsbrev, og hold deg oppdatert på <br /> bønnetider og andre nyheter!
 						</p>
-					</li>
-					<li>
-						<p>
-							<InstagramMcc width="16" />
-							<a
-								href="https://www.instagram.com/rahimisolutions/"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Instagram
-							</a>
-						</p>
-					</li>
-				</ul>
-			</div>
-			<div class="sitemap">
-				<h3>Sitemap</h3>
-				<ul>
-					<li><p><a href="/#top">Tilbake til toppen</a></p></li>
-					<li><p><a href="/#Bønnetabell">Bønnetider</a></p></li>
-					<li><p><a href="/#Innmelding">Innmelding</a></p></li>
-					<li><p><a href="/#OmMCC">Programmer</a></p></li>
-					<li><p><a href="/#Kontakt">Kontakt</a></p></li>
-					<li><p><a href="/#bottom">Nyhetsbrev</a></p></li>
-				</ul>
-			</div>
-		</div>
+					</div>
+					<form action="submit">
+						<input type="text" class="form-input" name="email" placeholder="Epost" required />
 
-		<div class="newsletter">
-			<div class="text">
-				<p>
-					Abonner på vårt nyhetsbrev, og hold deg oppdatert på <br /> bønnetider og andre nyheter!
-				</p>
-			</div>
-			<form action="submit">
-				<input type="text" class="form-input" name="email" placeholder="Epost" required />
+						<ButtonPrimary text="Abonner" />
+					</form>
+					<div class="disclaimer">
+						<p>Ved å abonnere godtår du våre vilker</p>
+					</div>
+				</div>
 
-				<ButtonPrimary text="Abonner" />
-			</form>
-			<div class="disclaimer">
-				<p>Ved å abonnere godtår du våre vilker</p>
+				<div class="legal">
+					<p class="copyright">
+						© 2024 Muslim Culture Center. All rights reserved. Org. nr. 980325652
+					</p>
+					<p class="madeby">
+						Made by <span
+							><a href="https://www.rahimisolutions.com/" target="_blank" rel="noopener noreferrer"
+								>Rahimi Solutions</a
+							></span
+						>
+					</p>
+				</div>
 			</div>
-		</div>
-
-		<div class="legal">
-			<p class="copyright">
-				© 2024 Muslim Culture Center. All rights reserved. Org. nr. 980325652
-			</p>
-			<p class="madeby">
-				Made by <span
-					><a href="https://www.rahimisolutions.com/" target="_blank" rel="noopener noreferrer"
-						>Rahimi Solutions</a
-					></span
-				>
-			</p>
-		</div>
-	</div>
-</footer>
+		</footer>
+	{/if}
+</MediaQuery>
 
 <style lang="scss">
 	* {
@@ -97,7 +105,7 @@
 		height: auto;
 		bottom: 0;
 		left: 0;
-		position: absolute;
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -106,7 +114,9 @@
 			min-width: 100%;
 			background-color: var(--green-secondary);
 			box-shadow: 0 -5px 12px 0 rgb(0, 0, 0, 0.2);
+
 			.content {
+				z-index: 2;
 				margin: 10px 0;
 				width: 100%;
 				display: flex;
@@ -115,7 +125,12 @@
 				font-size: 0.8em;
 				.logo {
 				}
+				.bg-logo {
+					position: absolute;
+					z-index: 0;
+				}
 				.channels {
+					position: relative;
 					h3 {
 						width: 100%;
 						text-align: start;
@@ -137,6 +152,7 @@
 					}
 				}
 				.sitemap {
+					position: relative;
 					h3 {
 						width: 100%;
 						text-align: start;
@@ -170,12 +186,15 @@
 					opacity: 0.8;
 				}
 				form {
-					margin: 10px;
+					position: relative;
+					z-index: 2;
+					margin: 10px 20px;
 					display: flex;
 
 					input {
 						flex: 1;
 						border: none;
+						border-radius: 5px;
 						padding-left: 10px;
 					}
 				}
@@ -191,7 +210,7 @@
 						color: var(--black);
 					}
 				}
-				.madeby{
+				.madeby {
 					display: flex;
 					gap: 5px;
 					justify-content: end;
