@@ -56,7 +56,7 @@
 				</div>
 				<div class="right">
 					<div class="image">
-						<img src={interiorImage} alt="interior" />
+						<img src={interiorImage} alt="interior"/>
 					</div>
 				</div>
 			</div>
@@ -454,6 +454,7 @@
 			.right {
 				.image {
 					img {
+						overflow-x: clip;
 						z-index: 0;
 					}
 				}

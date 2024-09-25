@@ -105,6 +105,7 @@
 	footer {
 		position: relative;
 		bottom: 0;
+		left: 0;
 		margin-top: 50px;
 		margin-bottom: 20px;
 		width: 100%;

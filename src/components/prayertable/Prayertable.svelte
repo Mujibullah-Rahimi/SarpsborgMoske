@@ -218,6 +218,7 @@
 		}
 		.jumuah {
 			background-color: var(--green-secondary);
+			border-radius: 0px 15px 15px 0px;
 			.title {
 				text-decoration: underline;
 				text-decoration-color: var(--white);

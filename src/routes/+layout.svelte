@@ -76,6 +76,6 @@
 	footer {
 		left: 0;
 		position: absolute;
-		width: 100vw;
+		width: 100%;
 	}
 </style>
