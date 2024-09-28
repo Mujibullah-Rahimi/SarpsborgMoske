@@ -4,6 +4,9 @@
 	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
 	import Navbar from '../components/navbar/Navbar.svelte';
 	import { inject } from '@vercel/analytics'
+	import { dev } from '$app/environment';
+	
+	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <svelte:head>
