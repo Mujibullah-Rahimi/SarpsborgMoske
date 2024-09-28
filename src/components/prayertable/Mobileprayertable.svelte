@@ -1,79 +1,9 @@
 <script>
+	import { loadCsvData } from '$lib/csv/csvfunctions';
+	import { getTodaysPrayerTimes } from '$lib/prayertimes/prayertimeFunctions';
+	import { prayerTimesStore } from '$lib/prayertimes/prayertimeStore';
 	import { onMount } from 'svelte';
-	import { chosendate, incrementDate, decrementDate } from '$lib/date/date';
-
-	let currentDate;
-	let prayerTimes = {
-		date: '',
-		fajr: '',
-		dhuhr: '',
-		asr: '',
-		maghrib: '',
-		isha: ''
-	};
-
-	// Subscribe to the chosen date and react to changes
-	chosendate.subscribe((value) => {
-		currentDate = value.toISOString().slice(0, 10); // Format as YYYY-MM-DD
-		// console.log(currentDate);
-		// Call a function here to load prayer times based on the new date
-		// loadPrayerTimes(currentDate);
-	});
-
-	// Function to load and parse the CSV file
-	async function loadCsvData() {
-		const response = await fetch('/assets/bonnetider2024test.csv');
-		const csvData = await response.text(); // Get CSV content as text
-
-		return parseCsv(csvData);
-	}
-
-	// Function to parse CSV data into an array of arrays
-	/**
-	 * @param {string} data
-	 */
-	function parseCsv(data) {
-		const rows = data.split('\n'); // Split by line
-		return rows.map((row) => row.split(',')); // Split each row by commas (assuming CSV is comma-separated)
-	}
-
-	// Helper function to convert DD-MM-YYYY to YYYY-MM-DD
-	/**
-	 * @param {{ split: (arg0: string) => [any, any, any]; }} dateStr
-	 */
-	function convertDateToISO(dateStr) {
-		const [day, month, year] = dateStr.split('.');
-		return `${year}-${month}-${day}`; // Returns in YYYY-MM-DD format
-	}
-
-	// Function to find today's prayer times based on the current date
-	/**
-	 * @param {any[]} data
-	 * @param {undefined} [date]
-	 */
-	function getTodaysPrayerTimes(data, date) {
-		const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD format
-		// console.log(today)
-
-		// Find the row with today's date in DD-MM-YYYY format in the first column
-		const todayRow = data.find((row) => {
-			const rowDateISO = convertDateToISO(row[0]); // Convert DD-MM-YYYY to YYYY-MM-DD
-			return rowDateISO === today;
-		});
-
-		// If today's row is found, map it to the `prayerTimes` object
-		if (todayRow) {
-			prayerTimes = {
-				date: todayRow[0],
-				fajr: todayRow[1],
-				dhuhr: todayRow[2],
-				asr: todayRow[3],
-				maghrib: todayRow[4],
-				isha: todayRow[5]
-			};
-		}
-	}
-
+	
 	// Function to add minutes to a time string (e.g., "05:12")
 	/**
 	 * @param {string} timeStr
@@ -96,7 +26,7 @@
 
 	// Load the CSV file and update the prayer times on component mount
 	onMount(async () => {
-		const csvData = await loadCsvData();
+		const csvData = await loadCsvData('/assets/bonnetider2024test.csv');
 		getTodaysPrayerTimes(csvData);
 	});
 </script>
@@ -115,10 +45,10 @@
 		<div class="left"><h2 class="title">FAJR</h2></div>
 		<div class="right">
 			<div class="fajr-adhan">
-				<h2 class="time">{prayerTimes.fajr}</h2>
+				<h2 class="time">{$prayerTimesStore.fajr}</h2>
 			</div>
 			<div class="fajr-iqamah">
-				<h2 class="time">{addMinutesToTime(prayerTimes.fajr, 15)}</h2>
+				<h2 class="time">{addMinutesToTime($prayerTimesStore.fajr, 15)}</h2>
 			</div>
 		</div>
 	</div>
@@ -128,7 +58,7 @@
 		<div class="left"><h2 class="title">DHUHR</h2></div>
 		<div class="right">
 			<div class="dhuhr-adhan">
-				<h2 class="time">{prayerTimes.dhuhr}</h2>
+				<h2 class="time">{$prayerTimesStore.dhuhr}</h2>
 			</div>
 			<div class="dhuhr-iqamah">
 				<h2 class="time">14:00</h2>
@@ -141,7 +71,7 @@
 		<div class="left"><h2 class="title">ASR</h2></div>
 		<div class="right">
 			<div class="asr-adhan">
-				<h2 class="time">{prayerTimes.asr}</h2>
+				<h2 class="time">{$prayerTimesStore.asr}</h2>
 			</div>
 			<div class="asr-iqamah">
 				<h2 class="time">17:00</h2>
@@ -154,10 +84,10 @@
 		<div class="left"><h2 class="title">MAGHRIB</h2></div>
 		<div class="right">
 			<div class="maghrib-adhan">
-				<h2 class="time">{prayerTimes.maghrib}</h2>
+				<h2 class="time">{$prayerTimesStore.maghrib}</h2>
 			</div>
 			<div class="maghrib-iqamah">
-				<h2 class="time">{prayerTimes.maghrib}</h2>
+				<h2 class="time">{$prayerTimesStore.maghrib}</h2>
 			</div>
 		</div>
 	</div>
@@ -167,10 +97,10 @@
 		<div class="left"><h2 class="title">ISHA</h2></div>
 		<div class="right">
 			<div class="isha-adhan">
-				<h2 class="time">{prayerTimes.isha}</h2>
+				<h2 class="time">{$prayerTimesStore.isha}</h2>
 			</div>
 			<div class="isha-iqamah">
-				<h2 class="time">{addMinutesToTime(prayerTimes.isha, 10)}</h2>
+				<h2 class="time">{addMinutesToTime($prayerTimesStore.isha, 10)}</h2>
 			</div>
 		</div>
 	</div>

@@ -120,7 +120,7 @@
 								Har du spørsmål eller ønsker mer informasjon? Send oss en e-post, så svarer vi deg
 								så raskt som mulig.
 							</p>
-							<p>
+							<p >
 								<a href="mailto: {info}">{info}</a>
 							</p>
 						{:else if channel === 'address'}

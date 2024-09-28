@@ -1,6 +1,5 @@
 <script>
 	import GeoAltMcc from '$lib/icons/geo-alt-mcc.svelte';
-
 	import Quranpic from '$lib/images/quran_300.jpg';
 	import Charitypic from '$lib/images/veldedighet_300.jpg';
 	import Fridaypic from '$lib/images/friday_prayer_300.jpg';
@@ -17,6 +16,7 @@
 	import sarpmoske from '$lib/images/sarpsborgmoske.png';
 	import Mobileprayertable from '../components/prayertable/Mobileprayertable.svelte';
 	const sarpsborgMoske = sarpmoske;
+	import Datepicker from '../components/Datepicker.svelte';
 </script>
 
 <svelte:head></svelte:head>
@@ -56,21 +56,13 @@
 				</div>
 				<div class="right">
 					<div class="image">
-						<img src={interiorImage} alt="interior"/>
+						<img src={interiorImage} alt="interior" />
 					</div>
 				</div>
 			</div>
 
 			<div class="prayertime-section" id="Bønnetabell">
-				<div class="date">
-					<div class="calendar-icon">
-						<CalendarMcc width="20" />
-					</div>
-					<div class="date-text">
-						<p>21. September 2024</p>
-						<!-- make clickable to change date -->
-					</div>
-				</div>
+				<Datepicker iconWidth="24" controlsWidth="16" />
 				<div class="prayer-table">
 					<Prayertable />
 				</div>
@@ -246,152 +238,148 @@
 				<div class="mobile-prayertime-section" id="Bønnetabell">
 					<div class="date-container">
 						<div class="date">
-							<div class="calendar-icon">
-								<CalendarMcc width="16" />
-							</div>
-							<div class="date-text">
-								<p>21. September 2024</p>
-								<!-- make clickable to change date -->
+							<Datepicker iconWidth="24" controlsWidth="16" />
+						</div>
+
+						<div class="prayer-table">
+							<Mobileprayertable />
+						</div>
+						<div class="download-prayertimes-container">
+							<div class="download-prayertimes">
+								<div class="download-icon">
+									<DownloadMcc width="16" />
+								</div>
+								<div class="download-text">
+									<p>
+										<a href="/assets/bonnetider2024test.csv" download>
+											Last ned bønnetabell 2024
+										</a>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="prayer-table">
-						<Mobileprayertable />
-					</div>
-					<div class="download-prayertimes-container">
-						<div class="download-prayertimes">
-							<div class="download-icon">
-								<DownloadMcc width="16" />
+					<div class="mobile-about-section" id="OmMCC">
+						<div class="about-mcc">
+							<div class="background-logo">
+								<Logo width="350px" opacity="0.05" />
 							</div>
-							<div class="download-text">
+							<div class="title">
+								<h1>Muslim Culture Center</h1>
+							</div>
+							<div class="text-one">
 								<p>
-									<a href="/assets/bonnetider2024test.csv" download> Last ned bønnetabell 2024 </a>
+									Som første moske i Sarpsborg har vi i MCC tjent samfunnet ved å skape et sted for
+									tilbedelse, utdannelse og opplæring og støtte.
+								</p>
+							</div>
+							<div class="text-two">
+								<p>
+									Vi er dedikerte til å fremme enhet, fremme fred og berike liv gjennom våre ulike
+									programmer og initiativer.
 								</p>
 							</div>
 						</div>
+						<div class="programmes">
+							<div class="programmes-title">
+								<h1>Utforsk våre programmer</h1>
+								<div class="text">
+									<p>
+										Velkommen til vår moskè hvor vi tilbyr en rekke programmer og tjenester for å
+										dekke vårt muslimske samfunn sine behov, vi strever for å opprette et miljø alle
+										føler seg velkomne hos.
+									</p>
+								</div>
+							</div>
+							<div class="programmes-events">
+								<div class="event">
+									<Eventcard
+										source={Quranpic}
+										altText="Quran undervisning for barn"
+										title="Undervisning for barn"
+										text="Quranskole for barn over 7år hver helg kl 13-15. 
+							  Kombinert med ulike aktiviteter"
+									/>
+								</div>
+								<div class="event">
+									<Eventcard
+										source={Charitypic}
+										altText="Måter du kan gi veldedighet"
+										title="Måter du kan gi sadaqah"
+										text="Se ulike måter du kan gi veldedighet på, for å nytte deg i dette liv og neste"
+									/>
+								</div>
+								<div class="event">
+									<Eventcard
+										source={Fridaypic}
+										altText="Fredagsbønn"
+										title="Fredagsbønn"
+										text="Velkommen til fredagsbønn! Delta i fellesskapet og styrk din tro med viktig påminnelse og felles bønn"
+									/>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
 
-				<div class="mobile-about-section" id="OmMCC">
-					<div class="about-mcc">
-						<div class="background-logo">
-							<Logo width="350px" opacity="0.05" />
-						</div>
-						<div class="title">
-							<h1>Muslim Culture Center</h1>
-						</div>
-						<div class="text-one">
-							<p>
-								Som første moske i Sarpsborg har vi i MCC tjent samfunnet ved å skape et sted for
-								tilbedelse, utdannelse og opplæring og støtte.
-							</p>
-						</div>
-						<div class="text-two">
-							<p>
-								Vi er dedikerte til å fremme enhet, fremme fred og berike liv gjennom våre ulike
-								programmer og initiativer.
-							</p>
-						</div>
-					</div>
-					<div class="programmes">
-						<div class="programmes-title">
-							<h1>Utforsk våre programmer</h1>
+					<div class="mobile-membership-section" id="Innmelding">
+						<div class="content">
+							<div class="title">
+								<h1>Bli en del av noe stort – bli med i dag!</h1>
+							</div>
 							<div class="text">
 								<p>
-									Velkommen til vår moskè hvor vi tilbyr en rekke programmer og tjenester for å
-									dekke vårt muslimske samfunn sine behov, vi strever for å opprette et miljø alle
-									føler seg velkomne hos.
+									Bli en del av et inkluderende fellesskap der vi sammen søker kunnskap, fred og
+									samhold.
+									<br />Her er alle velkomne – uansett bakgrunn,
+									<span class="highlight-text">meld deg inn</span> i dag og bidra til et godt miljø for
+									alle!
 								</p>
 							</div>
 						</div>
-						<div class="programmes-events">
-							<div class="event">
-								<Eventcard
-									source={Quranpic}
-									altText="Quran undervisning for barn"
-									title="Undervisning for barn"
-									text="Quranskole for barn over 7år hver helg kl 13-15. 
-							  Kombinert med ulike aktiviteter"
-								/>
-							</div>
-							<div class="event">
-								<Eventcard
-									source={Charitypic}
-									altText="Måter du kan gi veldedighet"
-									title="Måter du kan gi sadaqah"
-									text="Se ulike måter du kan gi veldedighet på, for å nytte deg i dette liv og neste"
-								/>
-							</div>
-							<div class="event">
-								<Eventcard
-									source={Fridaypic}
-									altText="Fredagsbønn"
-									title="Fredagsbønn"
-									text="Velkommen til fredagsbønn! Delta i fellesskapet og styrk din tro med viktig påminnelse og felles bønn"
-								/>
-							</div>
+						<div class="buttons">
+							<ButtonSecondary fontSize="1em" text="Støtt MCC" />
+							<ButtonPrimary fontSize="1em" text="Bli medlem" />
 						</div>
 					</div>
-				</div>
 
-				<div class="mobile-membership-section" id="Innmelding">
-					<div class="content">
-						<div class="title">
-							<h1>Bli en del av noe stort – bli med i dag!</h1>
+					<div class="mobile-contact-section" id="Kontakt">
+						<div class="contact">
+							<div class="title">
+								<h1>Kontakt Oss</h1>
+							</div>
+							<div class="text">
+								<p>
+									Har du spørsmål eller ønsker mer informasjon? <br />Ta gjerne kontakt med oss – vi
+									er her for å hjelpe deg. Sammen bygger vi et inkluderende og støttende fellesskap.
+								</p>
+							</div>
 						</div>
-						<div class="text">
-							<p>
-								Bli en del av et inkluderende fellesskap der vi sammen søker kunnskap, fred og
-								samhold.
-								<br />Her er alle velkomne – uansett bakgrunn,
-								<span class="highlight-text">meld deg inn</span> i dag og bidra til et godt miljø for
-								alle!
-							</p>
-						</div>
-					</div>
-					<div class="buttons">
-						<ButtonSecondary fontSize="1em" text="Støtt MCC" />
-						<ButtonPrimary fontSize="1em" text="Bli medlem" />
-					</div>
-				</div>
-
-				<div class="mobile-contact-section" id="Kontakt">
-					<div class="contact">
-						<div class="title">
-							<h1>Kontakt Oss</h1>
-						</div>
-						<div class="text">
-							<p>
-								Har du spørsmål eller ønsker mer informasjon? <br />Ta gjerne kontakt med oss – vi
-								er her for å hjelpe deg. Sammen bygger vi et inkluderende og støttende fellesskap.
-							</p>
-						</div>
-					</div>
-					<div class="channels">
-						<div class="channel">
-							<Contactcard
-								channel="email"
-								title="Epost"
-								text=""
-								info="kontakt@sarpsborgmoske.com"
-							/>
-						</div>
-						<div class="channel">
-							<Contactcard channel="phone" title="Telefon" text="" info="+47 489 25 590" />
-						</div>
-						<div class="channel">
-							<Contactcard
-								channel="address"
-								title="Adresse"
-								text=""
-								info="Håkons gate 2, 1712 Sarpsborg"
-							/>
+						<div class="channels">
+							<div class="channel">
+								<Contactcard
+									channel="email"
+									title="Epost"
+									text=""
+									info="kontakt@sarpsborgmoske.com"
+								/>
+							</div>
+							<div class="channel">
+								<Contactcard channel="phone" title="Telefon" text="" info="+47 489 25 590" />
+							</div>
+							<div class="channel">
+								<Contactcard
+									channel="address"
+									title="Adresse"
+									text=""
+									info="Håkons gate 2, 1712 Sarpsborg"
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</body>
+			</div></body
+		>
 	{/if}
 </MediaQuery>
 
@@ -587,7 +575,7 @@
 					display: flex;
 					gap: 5%;
 					.event {
-						flex: 1;
+						width: 33%;
 					}
 				}
 			}
@@ -643,7 +631,7 @@
 				display: flex;
 				gap: 5%;
 				.channel {
-					flex: 1;
+					width: 33%;
 				}
 			}
 		}
@@ -711,12 +699,14 @@
 			.date-container {
 				width: 90vw;
 				display: flex;
+				flex-direction: column;
 				margin: auto;
-				justify-content: start;
 				margin-bottom: 20px;
 				.date {
 					background-color: var(--green-secondary);
-					width: fit-content;
+					width: 80%;
+					margin: auto;
+					margin-bottom: 10px;
 					padding: 8px 10px 5px 8px;
 					border-radius: 8px;
 					display: flex;
