@@ -3,6 +3,7 @@
 	import Mobilefooter from '../components/footer/Mobilefooter.svelte';
 	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
 	import Navbar from '../components/navbar/Navbar.svelte';
+	import { inject } from '@vercel/analytics'
 </script>
 
 <svelte:head>
