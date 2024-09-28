@@ -58,3 +58,20 @@ export function getTodaysPrayerTimes(data: any[]) {
 		}
 	}
 }
+
+// Function to add minutes to a time string (e.g., "05:12")
+
+export function addMinutesToTime(timeStr: string, minutesToAdd: number) {
+	if (typeof timeStr !== 'string') {
+		console.error('Invalid time string');
+		return ''; // return empty string or handle error appropriately
+	}
+
+	const [hours, minutes] = timeStr.split(':').map(Number); // Split time into hours and minutes
+	const time = new Date();
+	time.setHours(hours);
+	time.setMinutes(minutes + minutesToAdd);
+
+	// Return the new time as "HH:MM" format
+	return time.toTimeString().slice(0, 5);
+}

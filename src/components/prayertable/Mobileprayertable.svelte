@@ -1,28 +1,13 @@
-<script>
+<script lang="ts">
 	import { loadCsvData } from '$lib/csv/csvfunctions';
-	import { getTodaysPrayerTimes } from '$lib/prayertimes/prayertimeFunctions';
+	import { addMinutesToTime, getTodaysPrayerTimes } from '$lib/prayertimes/prayertimeFunctions';
 	import { prayerTimesStore } from '$lib/prayertimes/prayertimeStore';
 	import { onMount } from 'svelte';
-	
-	// Function to add minutes to a time string (e.g., "05:12")
-	/**
-	 * @param {string} timeStr
-	 * @param {number} minutesToAdd
-	 */
-	function addMinutesToTime(timeStr, minutesToAdd) {
-		if (typeof timeStr !== 'string') {
-			console.error('Invalid time string');
-			return ''; // return empty string or handle error appropriately
-		}
+	import { quintOut } from 'svelte/easing';
+	import { fade, fly, slide } from 'svelte/transition';
 
-		const [hours, minutes] = timeStr.split(':').map(Number); // Split time into hours and minutes
-		const time = new Date();
-		time.setHours(hours);
-		time.setMinutes(minutes + minutesToAdd);
-
-		// Return the new time as "HH:MM" format
-		return time.toTimeString().slice(0, 5);
-	}
+	const slideTransition = { delay: 250, duration: 300, easing: quintOut, axis: 'x' as 'x' };
+	const flyTransition = {delay: 250,duration: 300,x: 800,y: 0,opacity: 0.5,easing: quintOut};
 
 	// Load the CSV file and update the prayer times on component mount
 	onMount(async () => {
@@ -31,93 +16,95 @@
 	});
 </script>
 
-<div class="prayer-table">
-	<div class="description-box box">
-		<div class="left"><h2>BØNN</h2></div>
-		<div class="right">
-			<h2>ADHAN</h2>
-			<h2>IQAMAH</h2>
+{#key $prayerTimesStore.date}
+	<div class="prayer-table">
+		<div class="description-box box">
+			<div class="left"><h2>BØNN</h2></div>
+			<div class="right">
+				<h2>ADHAN</h2>
+				<h2>IQAMAH</h2>
+			</div>
 		</div>
-	</div>
 
-	<!-- Fajr -->
-	<div class="fajr salah box">
-		<div class="left"><h2 class="title">FAJR</h2></div>
-		<div class="right">
-			<div class="fajr-adhan">
-				<h2 class="time">{$prayerTimesStore.fajr}</h2>
-			</div>
-			<div class="fajr-iqamah">
-				<h2 class="time">{addMinutesToTime($prayerTimesStore.fajr, 15)}</h2>
+		<!-- Fajr -->
+		<div class="fajr salah box">
+			<div class="left"><h2 class="title">FAJR</h2></div>
+			<div class="right">
+				<div class="fajr-adhan" >
+					<h2 class="time">{$prayerTimesStore.fajr}</h2>
+				</div>
+				<div class="fajr-iqamah" >
+					<h2 class="time">{addMinutesToTime($prayerTimesStore.fajr, 15)}</h2>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Dhuhr -->
-	<div class="dhuhr salah box">
-		<div class="left"><h2 class="title">DHUHR</h2></div>
-		<div class="right">
-			<div class="dhuhr-adhan">
-				<h2 class="time">{$prayerTimesStore.dhuhr}</h2>
-			</div>
-			<div class="dhuhr-iqamah">
-				<h2 class="time">14:00</h2>
+		<!-- Dhuhr -->
+		<div class="dhuhr salah box">
+			<div class="left"><h2 class="title">DHUHR</h2></div>
+			<div class="right">
+				<div class="dhuhr-adhan" >
+					<h2 class="time">{$prayerTimesStore.dhuhr}</h2>
+				</div>
+				<div class="dhuhr-iqamah" >
+					<h2 class="time">14:00</h2>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Asr -->
-	<div class="asr salah box">
-		<div class="left"><h2 class="title">ASR</h2></div>
-		<div class="right">
-			<div class="asr-adhan">
-				<h2 class="time">{$prayerTimesStore.asr}</h2>
-			</div>
-			<div class="asr-iqamah">
-				<h2 class="time">17:00</h2>
+		<!-- Asr -->
+		<div class="asr salah box">
+			<div class="left"><h2 class="title">ASR</h2></div>
+			<div class="right">
+				<div class="asr-adhan" >
+					<h2 class="time">{$prayerTimesStore.asr}</h2>
+				</div>
+				<div class="asr-iqamah" >
+					<h2 class="time">17:00</h2>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Maghrib -->
-	<div class="maghrib salah box">
-		<div class="left"><h2 class="title">MAGHRIB</h2></div>
-		<div class="right">
-			<div class="maghrib-adhan">
-				<h2 class="time">{$prayerTimesStore.maghrib}</h2>
-			</div>
-			<div class="maghrib-iqamah">
-				<h2 class="time">{$prayerTimesStore.maghrib}</h2>
+		<!-- Maghrib -->
+		<div class="maghrib salah box">
+			<div class="left"><h2 class="title">MAGHRIB</h2></div>
+			<div class="right">
+				<div class="maghrib-adhan" >
+					<h2 class="time">{$prayerTimesStore.maghrib}</h2>
+				</div>
+				<div class="maghrib-iqamah" >
+					<h2 class="time">{$prayerTimesStore.maghrib}</h2>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Isha -->
-	<div class="isha salah box">
-		<div class="left"><h2 class="title">ISHA</h2></div>
-		<div class="right">
-			<div class="isha-adhan">
-				<h2 class="time">{$prayerTimesStore.isha}</h2>
-			</div>
-			<div class="isha-iqamah">
-				<h2 class="time">{addMinutesToTime($prayerTimesStore.isha, 10)}</h2>
+		<!-- Isha -->
+		<div class="isha salah box">
+			<div class="left"><h2 class="title">ISHA</h2></div>
+			<div class="right">
+				<div class="isha-adhan" >
+					<h2 class="time">{$prayerTimesStore.isha}</h2>
+				</div>
+				<div class="isha-iqamah" >
+					<h2 class="time">{addMinutesToTime($prayerTimesStore.isha, 10)}</h2>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Jumuah -->
-	<div class="jumuah box">
-		<div class="left"><h2 class="title">JUMUAH</h2></div>
-		<div class="right">
-			<div class="empty">
-				<h2 class="empty">14:30</h2>
-			</div>
-			<div class="khutba">
-				<h2 class="time">14:30</h2>
+		<!-- Jumuah -->
+		<div class="jumuah box">
+			<div class="left"><h2 class="title">JUMUAH</h2></div>
+			<div class="right">
+				<div class="empty">
+					<h2 class="empty">14:30</h2>
+				</div>
+				<div class="khutba">
+					<h2 class="time">14:30</h2>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+{/key}
 
 <style lang="scss">
 	.prayer-table {
@@ -174,7 +161,7 @@
 		}
 		.jumuah {
 			background-color: var(--green-secondary);
-            border-radius: 0 0 10px 10px;
+			border-radius: 0 0 10px 10px;
 			.empty {
 				visibility: hidden;
 			}
