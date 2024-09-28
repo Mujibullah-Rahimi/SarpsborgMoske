@@ -101,7 +101,7 @@
 		outline: none;
 	}
 	footer {
-		width: 100vw;
+		width: 100%;
 		height: auto;
 		bottom: 0;
 		left: 0;

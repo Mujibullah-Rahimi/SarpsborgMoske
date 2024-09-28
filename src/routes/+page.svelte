@@ -385,6 +385,7 @@
 
 <style lang="scss">
 	body {
+		overflow-x: clip;
 		a {
 			text-decoration: none;
 			color: var(--black);

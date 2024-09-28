@@ -69,7 +69,7 @@
 <style lang="scss">
 	.mobile-nav {
 		z-index: 2;
-		width: 100vw;
+		width: 100%;
 		left: 0;
 		top: 0;
 		height: 70px;
@@ -115,7 +115,7 @@
 		top: 0;
 		position: fixed;
 		height: calc(100% - 60px);
-		width: 100vw;
+		width: 100%;
 		display: flex;
 		flex-direction: row;
 		.mobile-nav-opened-sidebar {
