@@ -73,7 +73,7 @@
 						</div>
 						<div class="download-text">
 							<p>
-								<a href="/assets/bonnetider2024test.csv" download> Last ned bønnetabell 2024 </a>
+								<a href="/assets/bonnetider2024.csv" download> Last ned bønnetabell 2024 </a>
 							</p>
 						</div>
 					</div>
@@ -251,7 +251,7 @@
 								</div>
 								<div class="download-text">
 									<p>
-										<a href="/assets/bonnetider2024test.csv" download>
+										<a href="/assets/bonnetider2024.csv" download>
 											Last ned bønnetabell 2024
 										</a>
 									</p>

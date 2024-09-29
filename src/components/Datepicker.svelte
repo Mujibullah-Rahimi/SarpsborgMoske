@@ -20,14 +20,14 @@
 		if (choice == 1) {
 			decrementDate();
 			(async () => {
-				const csvData = await loadCsvData('/assets/bonnetider2024test.csv');
+				const csvData = await loadCsvData('/assets/bonnetider2024.csv');
 				getTodaysPrayerTimes(csvData); // This updates the prayerTimesStore
 			})();
 		}
 		if (choice == 2) {
 			incrementDate();
 			(async () => {
-				const csvData = await loadCsvData('/assets/bonnetider2024test.csv');
+				const csvData = await loadCsvData('/assets/bonnetider2024.csv');
 				getTodaysPrayerTimes(csvData); // This updates the prayerTimesStore
 			})();
 		}

@@ -11,7 +11,7 @@
 
 	// Load the CSV file and update the prayer times on component mount
 	onMount(async () => {
-		const csvData = await loadCsvData('/assets/bonnetider2024test.csv');
+		const csvData = await loadCsvData('/assets/bonnetider2024.csv');
 		getTodaysPrayerTimes(csvData);
 	});
 </script>
