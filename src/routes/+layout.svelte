@@ -3,9 +3,12 @@
 	import Mobilefooter from '../components/footer/Mobilefooter.svelte';
 	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
 	import Navbar from '../components/navbar/Navbar.svelte';
-	import { inject } from '@vercel/analytics'
+	import { inject } from '@vercel/analytics';
 	import { dev } from '$app/environment';
-	
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+
+	injectSpeedInsights();
+
 	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
@@ -67,7 +70,7 @@
 		src: local('$lib/fontfaces/Poppins-SemiMedium.ttf') format('truetype');
 		font-display: swap;
 	}
-	:global(h2) {
+	:global(h2, li) {
 		font-family: 'Roboto';
 		src: local('$lib/fontfaces/Roboto-Light.ttf') format('truetype');
 		font-display: swap;

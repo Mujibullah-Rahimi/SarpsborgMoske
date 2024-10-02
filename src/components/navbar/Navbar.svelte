@@ -2,11 +2,18 @@
 	import ButtonPrimary from '../ButtonPrimary.svelte';
 	import Logo from '../Logo.svelte';
 	import MediaQuery from '../MediaQuery.svelte';
+	import SupportPopup from '../Popup/SupportPopup.svelte';
+
+	let opentoggle = false;
+	function openPopup() {
+		opentoggle = true;
+	}
 </script>
 
 <MediaQuery query="(min-width: 936px)" let:matches>
 	{#if matches}
 		<nav>
+			<SupportPopup bind:open={opentoggle}/>
 			<div class="logo">
 				<Logo />
 			</div>
@@ -17,7 +24,8 @@
 					<li><p><a href="/#Kontakt">Kontakt</a></p></li>
 				</ul>
 			</div>
-			<div class="navbar-cta">
+			<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+			<div class="navbar-cta" on:click={openPopup}>
 				<ButtonPrimary text="Støtt MCC" fontSize="1.25em" height="2em" />
 			</div>
 		</nav>

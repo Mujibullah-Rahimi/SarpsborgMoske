@@ -6,7 +6,6 @@
 	import ButtonPrimary from '../components/ButtonPrimary.svelte';
 	import ButtonSecondary from '../components/ButtonSecondary.svelte';
 	import interiorImage from '$lib/images/interior.png';
-	import CalendarMcc from '$lib/icons/calendar-mcc.svelte';
 	import DownloadMcc from '$lib/icons/download-mcc.svelte';
 	import Prayertable from '../components/prayertable/Prayertable.svelte';
 	import Eventcard from '../components/Eventcard.svelte';
@@ -17,6 +16,17 @@
 	import Mobileprayertable from '../components/prayertable/Mobileprayertable.svelte';
 	const sarpsborgMoske = sarpmoske;
 	import Datepicker from '../components/Datepicker.svelte';
+	import JoinPopup from '../components/Popup/JoinPopup.svelte';
+	import SupportPopup from '../components/Popup/SupportPopup.svelte';
+
+	let openJointoggle = false;
+	let openSupportToggle = false;
+	function openJoinPopup() {
+		openJointoggle = true;
+	}
+	function openSupportPopup() {
+		openSupportToggle = true;
+	}
 </script>
 
 <svelte:head></svelte:head>
@@ -24,6 +34,8 @@
 <MediaQuery query="(min-width: 936px)" let:matches>
 	{#if matches}
 		<body>
+			<JoinPopup bind:open={openJointoggle} />
+			<SupportPopup bind:open={openSupportToggle} />
 			<div class="hero-section" id="Hjem">
 				<div class="left">
 					<div class="address">
@@ -49,8 +61,9 @@
 						<div class="contact">
 							<ButtonSecondary text="Kontakt" fontSize="1.25em" link="/#Kontakt" />
 						</div>
-						<div class="join">
-							<ButtonPrimary text="Bli medlem" fontSize="1.25em" link="/#Innmelding" />
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+						<div class="join" on:click={openJoinPopup}>
+							<ButtonPrimary text="Bli medlem" fontSize="1.25em" />
 						</div>
 					</div>
 				</div>
@@ -157,8 +170,14 @@
 					</div>
 				</div>
 				<div class="buttons">
-					<ButtonSecondary fontSize="2em" text="Støtt MCC" />
-					<ButtonPrimary fontSize="2em" text="Bli medlem" />
+					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+					<div class="support" on:click={openSupportPopup}>
+						<ButtonSecondary fontSize="2em" text="Støtt MCC" />
+					</div>
+					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+					<div class="join" on:click={openJoinPopup}>
+						<ButtonPrimary fontSize="2em" text="Bli medlem" />
+					</div>
 				</div>
 			</div>
 
@@ -198,6 +217,8 @@
 <MediaQuery query="(max-width: 935px)" let:matches>
 	{#if matches}
 		<body>
+			<JoinPopup bind:open={openJointoggle} />
+			<SupportPopup bind:open={openSupportToggle} />
 			<div class="mobile-container">
 				<div class="mobile-herosection" id="Hjem">
 					<div class="bg-image">
@@ -228,8 +249,9 @@
 							<div class="contact">
 								<ButtonSecondary text="Kontakt" fontSize="1em" link="/#Kontakt" />
 							</div>
-							<div class="join">
-								<ButtonPrimary text="Bli medlem" fontSize="1em" link="/#Innmelding" />
+							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+							<div class="join" on:click={openJoinPopup}>
+								<ButtonPrimary text="Bli medlem" fontSize="1em" />
 							</div>
 						</div>
 					</div>
@@ -251,9 +273,7 @@
 								</div>
 								<div class="download-text">
 									<p>
-										<a href="/assets/bonnetider2024.csv" download>
-											Last ned bønnetabell 2024
-										</a>
+										<a href="/assets/bonnetider2024.csv" download> Last ned bønnetabell 2024 </a>
 									</p>
 								</div>
 							</div>
@@ -338,8 +358,14 @@
 							</div>
 						</div>
 						<div class="buttons">
-							<ButtonSecondary fontSize="1em" text="Støtt MCC" />
-							<ButtonPrimary fontSize="1em" text="Bli medlem" />
+							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+							<div class="support" on:click={openSupportPopup}>
+								<ButtonSecondary fontSize="1em" text="Støtt MCC" />
+							</div>
+							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+							<div class="join" on:click={openJoinPopup}>
+								<ButtonPrimary fontSize="1em" text="Bli medlem" />
+							</div>
 						</div>
 					</div>
 

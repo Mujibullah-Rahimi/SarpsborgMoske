@@ -6,8 +6,16 @@
 	import XmarkMcc from '$lib/icons/xmark-mcc.svelte';
 	import Logo from '../Logo.svelte';
 	import ButtonPrimary from '../ButtonPrimary.svelte';
+	import SupportPopup from '../Popup/SupportPopup.svelte';
 
 	let open = false;
+	let opentoggle = false;
+	function openPopup() {
+		if (open) {
+			open = false;
+		}
+		opentoggle = true;
+	}
 	function handleMobileMenuClick() {
 		if (open) {
 			open = false;
@@ -27,6 +35,7 @@
 
 <MediaQuery query="(max-width: 935px)" let:matches>
 	{#if matches}
+	<SupportPopup bind:open={opentoggle}/>
 		<div class="mobile-nav">
 			<div class="mobile-nav-closed">
 				<div class="mobile-nav-dropdown">
@@ -54,7 +63,7 @@
 						<p><a href="/#Innmelding" on:click={handleMenuChoice}>Innmelding</a></p>
 						<p><a href="/#Kontakt" on:click={handleMenuChoice}>Kontakt</a></p>
 						<p>
-							<a href="/#top" class="nav-book-meeting" on:click={handleMenuChoice}
+							<a href="/#top" class="nav-book-meeting" on:click={openPopup}
 								><ButtonPrimary text="Støtt MCC" fontSize="1.25em" />
 							</a>
 						</p>

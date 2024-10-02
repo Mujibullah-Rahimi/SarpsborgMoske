@@ -1,12 +1,20 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	export let fontSize = '1em';
 	export let height = '2.5em';
 	export let text = 'text';
 	export let link = '';
+
+	function goToLink() {
+		if (link != '') {
+			goto(link);
+		}
+	}
 </script>
 
-<button class="button" style="--font-size: {fontSize}; --height: {height};">
-	<span><a href={link}>{text}</a></span>
+<button class="button" style="--font-size: {fontSize}; --height: {height};" on:click={goToLink}>
+	<span><a>{text}</a></span>
 </button>
 
 <style lang="scss">
