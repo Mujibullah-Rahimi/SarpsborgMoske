@@ -13,40 +13,41 @@
 			<div class="container">
 				<div class="content">
 					<div class="bg-logo">
-						<Logo width="300" opacity="0.05" />
+						<Logo width="200" opacity="0.05" />
 					</div>
 					<div class="logo">
 						<Logo width="64" />
+						<div class="channels">
+							<h3>Følg oss</h3>
+							<ul>
+								<li>
+									<p>
+										<FacebookMcc width="16" />
+										<a
+											href="https://www.facebook.com/profile.php?id=61557985585676&locale=nb_NO"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											Facebook</a
+										>
+									</p>
+								</li>
+								<li>
+									<p>
+										<InstagramMcc width="16" />
+										<a
+											href="https://www.instagram.com/rahimisolutions/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											Instagram
+										</a>
+									</p>
+								</li>
+							</ul>
+						</div>
 					</div>
-					<div class="channels">
-						<h3>Følg oss</h3>
-						<ul>
-							<li>
-								<p>
-									<FacebookMcc width="16" />
-									<a
-										href="https://www.facebook.com/profile.php?id=61557985585676&locale=nb_NO"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Facebook</a
-									>
-								</p>
-							</li>
-							<li>
-								<p>
-									<InstagramMcc width="16" />
-									<a
-										href="https://www.instagram.com/rahimisolutions/"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Instagram
-									</a>
-								</p>
-							</li>
-						</ul>
-					</div>
+
 					<div class="sitemap">
 						<h3>Sitemap</h3>
 						<ul>
@@ -60,7 +61,7 @@
 					</div>
 				</div>
 
-				<div class="newsletter">
+				<!-- <div class="newsletter">
 					<div class="text">
 						<p>
 							Abonner på vårt nyhetsbrev, og hold deg oppdatert på <br /> bønnetider og andre nyheter!
@@ -74,7 +75,7 @@
 					<div class="disclaimer">
 						<p>Ved å abonnere godtår du våre vilker</p>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="legal">
 					<p class="copyright">
@@ -123,7 +124,11 @@
 				justify-content: space-evenly;
 				gap: 5%;
 				font-size: 0.8em;
-				.logo {
+				.logo{
+					display: flex;
+					flex-direction: column;
+					justify-content: space-evenly;
+					gap: 20%;
 				}
 				.bg-logo {
 					position: absolute;
@@ -155,7 +160,7 @@
 					position: relative;
 					h3 {
 						width: 100%;
-						text-align: start;
+						text-align: end;
 						margin: 0 auto 10px auto;
 					}
 					ul {
@@ -163,6 +168,7 @@
 						li {
 							margin-bottom: 10px;
 							p {
+								text-align: end;
 								a {
 									text-decoration: underline;
 									color: var(--black);

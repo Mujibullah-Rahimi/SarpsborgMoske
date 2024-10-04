@@ -4,6 +4,7 @@
 	import Vipps from '$lib/icons/vipps.svelte';
 	import Dnb from '$lib/icons/DNB.svelte';
 	import MediaQuery from '../MediaQuery.svelte';
+	import XmarkMcc from '$lib/icons/xmark-mcc.svelte';
 
 	export let open = false;
 
@@ -23,7 +24,12 @@
 			>
 				<div class="container" on:click|stopPropagation>
 					<div class="text">
-						<h1>Støtt moskeen – Bli med og gjør en forskjell!</h1>
+						<div class="header">
+							<h1>Støtt moskeen – Bli med og gjør en forskjell!</h1>
+							<div class="download-icon" on:click={handleExit}>
+								<XmarkMcc width="16" />
+							</div>
+						</div>
 						<p>
 							Vi er takknemlige for all støtte som hjelper oss med å opprettholde moskeen som et
 							trygt og inkluderende samlingssted for fellesskapet. <br /><br />Din støtte bidrar til
@@ -69,7 +75,13 @@
 			>
 				<div class="container" on:click|stopPropagation>
 					<div class="text">
-						<h1>Støtt moskeen – Bli med og gjør en forskjell!</h1>
+						<div class="header">
+							<h1>Støtt moskeen – Bli med og gjør en forskjell!</h1>
+							<div class="download-icon" on:click={handleExit}>
+								<XmarkMcc width="16" />
+							</div>
+						</div>
+
 						<p>
 							Vi er takknemlige for all støtte som hjelper oss med å opprettholde moskeen som et
 							trygt og inkluderende samlingssted for fellesskapet. <br /><br />Din støtte bidrar til
@@ -85,7 +97,7 @@
 								<div class="logo">
 									<Dnb width="200" />
 								</div>
-								<h2>0530.422.6031</h2>
+								<h1>0530.422.6031</h1>
 							</div>
 						</div>
 						<div class="vipps">
@@ -94,7 +106,7 @@
 								<div class="logo">
 									<Vipps width="300" />
 								</div>
-								<h2>#762639</h2>
+								<h1>#762639</h1>
 							</div>
 						</div>
 					</div>
@@ -122,13 +134,22 @@
 			margin: auto;
 			width: 40%;
 			border-radius: 15px;
+			overflow: hidden;
 			box-shadow: 5px 5px 12px 0 rgb(0, 0, 0, 0.5);
+
 			.text {
-				padding: 10px;
-				h1 {
-					text-align: center;
-					margin-bottom: 20px;
+				.header {
+					display: flex;
+					width: 100%;
+					justify-content: space-between;
+					h1 {
+						text-align: center;
+						color: var(--black);
+						font-size: 1.25em;
+						margin-bottom: 10px;
+					}
 				}
+				padding: 10px;
 			}
 			.choices {
 				height: 300px;
@@ -142,7 +163,6 @@
 
 					color: var(--white);
 					background-color: #14555a;
-					border-radius: 0 0 0 15px;
 					.details {
 						display: flex;
 						flex-direction: column;
@@ -156,7 +176,6 @@
 					justify-content: center;
 					color: var(--white);
 					background-color: #ff5b24;
-					border-radius: 0 0 15px 0;
 					.details {
 						display: flex;
 						flex-direction: column;
@@ -187,16 +206,23 @@
 			height: fit-content;
 			min-height: 200px; // Ensure a minimum height for the popup
 			border-radius: 15px;
+			overflow: clip;
 			box-shadow: 5px 5px 12px 0 rgb(0, 0, 0, 0.5);
 			font-size: 0.9em;
 
 			.text {
 				padding: 10px;
 
-				h1 {
-					font-size: 1.25em;
-					text-align: center;
-					margin-bottom: 20px;
+				.header {
+					display: flex;
+					width: 100%;
+					justify-content: space-between;
+					h1 {
+						text-align: center;
+						color: var(--black);
+						font-size: 1.25em;
+						margin-bottom: 10px;
+					}
 				}
 			}
 
@@ -214,16 +240,17 @@
 					align-items: center; // Center the content
 					color: var(--white);
 					height: auto; // Let the height be auto so it can adjust to the content
+					h1 {
+						font-size: 1.25em;
+					}
 				}
 
 				.dnb {
 					background-color: #14555a;
-					border-radius: 0px;
 				}
 
 				.vipps {
 					background-color: #ff5b24;
-					border-radius: 0 0 15px 15px;
 				}
 
 				.details {
