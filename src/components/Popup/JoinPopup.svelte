@@ -52,7 +52,14 @@
 				<div class="container" on:click|stopPropagation>
 					<div class="join">
 						<div class="text">
-							<h1>Bli medlem i MCC – Velkommen til fellesskapet!</h1>
+							<div class="header">
+								<div class="title">
+									<h1>Bli medlem i MCC – Velkommen til fellesskapet!</h1>
+								</div>
+								<div class="exit-icon" on:click={handleExit}>
+									<XmarkMcc width="20" />
+								</div>
+							</div>
 
 							<h2>Vil du være en del av vårt fellesskap?</h2>
 							<p>
@@ -128,7 +135,14 @@
 				<div class="container" on:click|stopPropagation>
 					<div class="join">
 						<div class="text">
-							<h1>Bli medlem i MCC – Velkommen til fellesskapet!</h1>
+							<div class="header">
+								<div class="title">
+									<h1>Bli medlem i MCC – Velkommen til fellesskapet!</h1>
+								</div>
+								<div class="exit-icon" on:click={handleExit}>
+									<XmarkMcc width="20" />
+								</div>
+							</div>
 
 							<h2>Vil du være en del av vårt fellesskap?</h2>
 							<p>
@@ -205,8 +219,8 @@
 					{#if choice === 'zero'}
 						<div class="header">
 							<h1>Bli medlem i MCC – Velkommen til fellesskapet!</h1>
-							<div class="download-icon" on:click={handleExit}>
-								<XmarkMcc width="16" />
+							<div class="exit-icon" on:click={handleExit}>
+								<XmarkMcc width="20" />
 							</div>
 						</div>
 						<div class="exitguide" transition:fly={{ x: 150, delay: 0, duration: 300 }}>
@@ -325,11 +339,21 @@
 			box-shadow: 5px 5px 12px 0 rgb(0, 0, 0, 0.5);
 			.text {
 				padding: 10px;
-				h1 {
-					text-align: center;
-					color: var(--black);
-					font-size: 1.5em;
-					margin-bottom: 20px;
+				.header {
+					display: flex;
+					width: 100%;
+					justify-content: space-between;
+					.title {
+						display: flex;
+						flex: 1;
+						justify-content: center;
+						h1 {
+							text-align: center;
+							color: var(--black);
+							font-size: 1.5em;
+							margin-bottom: 10px;
+						}
+					}
 				}
 				.highlight {
 					color: var(--green-primary);
@@ -449,11 +473,21 @@
 			font-size: 0.9em;
 			.text {
 				padding: 10px;
-				h1 {
-					text-align: center;
-					color: var(--black);
-					font-size: 1.25em;
-					margin-bottom: 20px;
+				.header {
+					display: flex;
+					width: 100%;
+					justify-content: space-between;
+					.title {
+						display: flex;
+						flex: 1;
+						justify-content: center;
+						h1 {
+							text-align: center;
+							color: var(--black);
+							font-size: 1.25em;
+							margin-bottom: 10px;
+						}
+					}
 				}
 				.highlight {
 					color: var(--green-primary);
@@ -633,7 +667,7 @@
 				}
 			}
 
-			.joinguide{
+			.joinguide {
 				margin-top: 20px;
 				padding: 10px;
 			}

@@ -60,7 +60,7 @@
 					<h2 class="time">{$prayerTimesStore.asr}</h2>
 				</div>
 				<div class="asr-iqamah" >
-					<h2 class="time">17:00</h2>
+					<h2 class="time">16:30</h2>
 				</div>
 			</div>
 		</div>
@@ -99,7 +99,7 @@
 					<h2 class="empty">14:30</h2>
 				</div>
 				<div class="khutba">
-					<h2 class="time">14:30</h2>
+					<h2 class="time">14:00</h2>
 				</div>
 			</div>
 		</div>
