@@ -23,6 +23,9 @@
 	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
 	import Navbar from '../components/navbar/Navbar.svelte';
 	import { goto } from '$app/navigation';
+	import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
+	import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
+	import { onMount } from 'svelte';
 
 	let openJointoggle = false;
 	let openSupportToggle = false;
@@ -32,6 +35,11 @@
 	function openSupportPopup() {
 		openSupportToggle = true;
 	}
+
+	onMount(async () => {
+		await getIqamahTimes(); // Fetch Iqamah times manually on load
+		listenToIqamahTimes(); // Set up real-time listener for updates
+	});
 </script>
 
 <svelte:head></svelte:head>
@@ -150,7 +158,12 @@
 							/>
 						</div>
 						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-						<div class="event" on:click={()=>{goto("/#Bønnetabell")}}>
+						<div
+							class="event"
+							on:click={() => {
+								goto('/#Bønnetabell');
+							}}
+						>
 							<Eventcard
 								source={Fridaypic}
 								altText="Fredagsbønn"

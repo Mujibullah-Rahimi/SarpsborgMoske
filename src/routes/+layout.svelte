@@ -7,6 +7,8 @@
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
 	import { authStore } from './(admin)/login/auth';
+	import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
+	import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
 
 	injectSpeedInsights();
 
@@ -28,6 +30,7 @@
 				}));
 			}
 		});
+		
 	});
 </script>
 

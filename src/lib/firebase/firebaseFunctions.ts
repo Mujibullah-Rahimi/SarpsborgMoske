@@ -3,7 +3,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 import { db } from "./firebase.client";
 import type { mccUser } from "../../components/mccUser";
-import type { IqamahTimes } from "$lib/stores/iqamahStore";
+import { fixedIqamahStore, type IqamahTimes } from "$lib/stores/iqamahStore";
 
 export async function fbGetUserDoc(userUid: string) {
     const res = await getDoc(doc(db, 'users', userUid));
@@ -52,5 +52,21 @@ export async function updateIqamahTimes(updatedTimes: Partial<IqamahTimes>) {
         console.log('Iqamah times updated successfully');
     } catch (error) {
         console.error('Error updating Iqamah times:', error);
+    }
+}
+
+export async function getIqamahTimes() {
+    const iqamahDocRef = doc(db, 'prayertimes', 'iqamahTimes');
+    
+    try {
+        const docSnapshot = await getDoc(iqamahDocRef);
+        if (docSnapshot.exists()) {
+            const data = docSnapshot.data() as IqamahTimes; // Cast to IqamahTimes
+            fixedIqamahStore.set(data); // Update the Svelte store with the new data
+        } else {
+            console.log('No fixed Iqamah times found');
+        }
+    } catch (error) {
+        console.error('Error fetching Iqamah times:', error);
     }
 }

@@ -10,9 +10,8 @@
 	import { fixedIqamahStore } from '$lib/stores/iqamahStore';
 	import { updateIqamahTimes } from '$lib/firebase/firebaseFunctions';
 	import { createToast } from '../../../../components/Toast/toastStore';
-	import NotificationToast from '../../../../components/Toast/NotificationToast.svelte';
 
-	export let data: any;
+	
 	let fsUser = null;
 
 	onMount(() => {

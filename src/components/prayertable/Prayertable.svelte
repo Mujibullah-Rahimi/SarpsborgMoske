@@ -16,7 +16,6 @@
 	onMount(async () => {
 		const csvData = await loadCsvData('/assets/bonnetider2024.csv');
 		getTodaysPrayerTimes(csvData);
-		listenToIqamahTimes();
 	});
 </script>
 

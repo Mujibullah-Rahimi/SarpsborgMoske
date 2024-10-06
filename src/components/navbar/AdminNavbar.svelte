@@ -68,29 +68,7 @@
 	.logo {
 		cursor: pointer;
 	}
-	.navbar-menu {
-		display: flex;
-		align-items: center;
-		ul {
-			display: flex;
-			list-style-type: none;
-			li {
-				margin: 10px;
-				cursor: pointer;
-				p {
-					font-size: 1.25em;
-					a {
-						text-decoration: none;
-						color: var(--black);
-					}
-					transition: ease-in-out 0.25s;
-					&:hover {
-						transform: translateY(-1px);
-					}
-				}
-			}
-		}
-	}
+	
 	.navbar-btn {
 		display: flex;
 		justify-content: center;
