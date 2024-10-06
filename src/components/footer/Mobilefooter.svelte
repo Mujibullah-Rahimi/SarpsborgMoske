@@ -178,33 +178,7 @@
 					}
 				}
 			}
-			.newsletter {
-				padding-top: 10px;
-				.text {
-					p {
-						font-size: 0.8em;
-						margin-left: 15px;
-					}
-				}
-				.disclaimer {
-					margin-left: 15px;
-					font-size: 0.6em;
-					opacity: 0.8;
-				}
-				form {
-					position: relative;
-					z-index: 2;
-					margin: 10px 20px;
-					display: flex;
-
-					input {
-						flex: 1;
-						border: none;
-						border-radius: 5px;
-						padding-left: 10px;
-					}
-				}
-			}
+			
 			.legal {
 				display: flex;
 				margin-top: 30px;

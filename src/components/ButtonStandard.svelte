@@ -14,7 +14,7 @@
 </script>
 
 <button class="button" style="--font-size: {fontSize}; --height: {height};" on:click={goToLink}>
-	<span><a>{text}</a></span>
+	<span><p>{text}</p></span>
 </button>
 
 <style lang="scss">
@@ -23,7 +23,7 @@
 		position: relative;
 		z-index: 1;
 
-		a {
+		p {
 			text-decoration: none;
 			color: var(--green-primary);
 			transition: color 0.3s ease; // Smooth color change on button hover
@@ -42,7 +42,7 @@
 		cursor: pointer;
 		overflow: hidden;
 		color: var(--green-primary);
-		a{
+		p{
 			text-transform: capitalize;
 		}
 	}

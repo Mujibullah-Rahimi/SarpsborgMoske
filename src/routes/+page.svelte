@@ -501,14 +501,6 @@
 				display: flex;
 				justify-content: center;
 				box-shadow: 5px 5px 12px 0 rgb(0, 0, 0, 0.2);
-				.calendar-icon {
-					margin-right: 5px;
-				}
-				.date-text {
-					font-size: 0.9em;
-					display: flex;
-					align-items: start;
-				}
 			}
 
 			.download-prayertimes-container {
@@ -752,14 +744,6 @@
 					display: flex;
 					justify-content: center;
 					box-shadow: 5px 5px 12px 0 rgb(0, 0, 0, 0.2);
-					.calendar-icon {
-						margin-right: 5px;
-					}
-					.date-text {
-						font-size: 0.7em;
-						display: flex;
-						align-items: start;
-					}
 				}
 			}
 

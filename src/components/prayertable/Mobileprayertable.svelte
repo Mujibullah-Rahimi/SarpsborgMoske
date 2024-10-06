@@ -151,14 +151,7 @@
 				}
 			}
 		}
-		.description-box {
-			.content {
-				height: 100%;
-				display: flex;
-				width: 100%;
-				justify-content: space-evenly;
-			}
-		}
+		
 		.jumuah {
 			background-color: var(--green-secondary);
 			border-radius: 0 0 10px 10px;
