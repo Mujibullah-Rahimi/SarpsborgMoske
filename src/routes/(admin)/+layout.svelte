@@ -1,34 +1,12 @@
 <script>
+
 	import { inject } from '@vercel/analytics';
 	import { dev } from '$app/environment';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-	import NotificationToast from '../components/Toast/NotificationToast.svelte';
-	import { auth } from '$lib/firebase/firebase.client';
-	import { onAuthStateChanged } from 'firebase/auth';
-	import { onMount } from 'svelte';
-	import { authStore } from './(admin)/login/auth';
 
 	injectSpeedInsights();
 
 	inject({ mode: dev ? 'development' : 'production' });
-
-	onMount(() => {
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				authStore.update((curr) => ({
-					...curr,
-					isLoggedIn: true,
-					currentUser: user
-				}));
-			} else {
-				authStore.update((curr) => ({
-					...curr,
-					isLoggedIn: false,
-					currentUser: null
-				}));
-			}
-		});
-	});
 </script>
 
 <svelte:head>
@@ -56,7 +34,6 @@
 	/>
 </svelte:head>
 
-<NotificationToast />
 <slot />
 
 <style>

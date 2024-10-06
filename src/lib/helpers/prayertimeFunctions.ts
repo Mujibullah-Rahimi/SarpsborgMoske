@@ -1,6 +1,6 @@
-import { convertDateToISO } from '$lib/date/dateFunctions';
-import { datestore } from '$lib/date/dateStore';
-import { prayerTimesStore } from './prayertimeStore';
+import { convertDateToISO } from '$lib/helpers/dateFunctions';
+import { datestore } from '$lib/stores/dateStore';
+import { prayerTimesStore } from '../stores/prayertimeStore';
 
 export function updatePrayerTimes(
 	date: string,
@@ -20,8 +20,9 @@ export function updatePrayerTimes(
 	});
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getTodaysPrayerTimes(data: any[]) {
-	let chosenDate: string | null;
+	let chosenDate: string | null | undefined;
 	let today: string;
 	datestore.subscribe((curr) => {
 		chosenDate = curr.chosenDate;
@@ -59,19 +60,11 @@ export function getTodaysPrayerTimes(data: any[]) {
 	}
 }
 
-// Function to add minutes to a time string (e.g., "05:12")
-
-export function addMinutesToTime(timeStr: string, minutesToAdd: number) {
-	if (typeof timeStr !== 'string') {
-		console.error('Invalid time string');
-		return ''; // return empty string or handle error appropriately
-	}
-
-	const [hours, minutes] = timeStr.split(':').map(Number); // Split time into hours and minutes
-	const time = new Date();
-	time.setHours(hours);
-	time.setMinutes(minutes + minutesToAdd);
-
-	// Return the new time as "HH:MM" format
-	return time.toTimeString().slice(0, 5);
-}
+// Utility function to add minutes to a time string in HH:MM format
+export function addMinutesToTime(time: string, minutes: number): string {
+	const [hours, mins] = time.split(':').map(Number);
+	const totalMinutes = hours * 60 + mins + minutes;
+	const newHours = Math.floor(totalMinutes / 60) % 24;
+	const newMinutes = totalMinutes % 60;
+	return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
+  }

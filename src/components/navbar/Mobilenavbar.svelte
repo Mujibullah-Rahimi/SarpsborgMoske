@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { slide } from 'svelte/transition';
 	import MediaQuery from '../MediaQuery.svelte';
 	import { quintOut } from 'svelte/easing';
@@ -7,9 +7,27 @@
 	import Logo from '../Logo.svelte';
 	import ButtonPrimary from '../ButtonPrimary.svelte';
 	import SupportPopup from '../Popup/SupportPopup.svelte';
+	import { authStore } from '$lib/stores/authStore';
+	import { onDestroy } from 'svelte';
+	import ButtonStandard from '../ButtonStandard.svelte';
 
 	let open = false;
 	let opentoggle = false;
+	let authData: {
+		isLoggedIn: any;
+		currentUser: any;
+		mccUser: any;
+		userToken?: string | null;
+		isVerified?: boolean;
+	};
+
+	const unsubscribe = authStore.subscribe((data) => {
+		authData = data;
+	});
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 	function openPopup() {
 		if (open) {
 			open = false;
@@ -35,7 +53,7 @@
 
 <MediaQuery query="(max-width: 935px)" let:matches>
 	{#if matches}
-	<SupportPopup bind:open={opentoggle}/>
+		<SupportPopup bind:open={opentoggle} />
 		<div class="mobile-nav">
 			<div class="mobile-nav-closed">
 				<div class="mobile-nav-dropdown">
@@ -62,13 +80,27 @@
 						<p><a href="/#OmMCC" on:click={handleMenuChoice}>Om MCC</a></p>
 						<p><a href="/#Innmelding" on:click={handleMenuChoice}>Innmelding</a></p>
 						<p><a href="/#Kontakt" on:click={handleMenuChoice}>Kontakt</a></p>
-						<p>
-							<a href="/#top" class="nav-book-meeting" on:click={openPopup}
-								><ButtonPrimary text="Støtt MCC" fontSize="1.25em" />
-							</a>
-						</p>
+						{#if authData.isLoggedIn && authData.currentUser}
+							<p>
+								<!-- svelte-ignore a11y-missing-attribute -->
+								<a class="navbar-admin-btn">
+									<ButtonStandard
+										text="Administrer"
+										link={'/dashboard/' + authData.currentUser.id}
+									/>
+								</a>
+							</p>
+						{:else}
+							<p>
+								<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+								<a href="/#top" class="nav-book-meeting" on:click={openPopup}>
+									<ButtonPrimary text="Støtt MCC" fontSize="1.25em" height="2em" />
+								</a>
+							</p>
+						{/if}
 					</div>
 				</div>
+				<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
 				<div class="mobile-nav-opened-overlay" on:click={handleOverlayClick}></div>
 			</div>
 		{/if}

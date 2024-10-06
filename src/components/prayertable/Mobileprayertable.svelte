@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { loadCsvData } from '$lib/csv/csvfunctions';
-	import { addMinutesToTime, getTodaysPrayerTimes } from '$lib/prayertimes/prayertimeFunctions';
-	import { prayerTimesStore } from '$lib/prayertimes/prayertimeStore';
+	import { loadCsvData } from '$lib/helpers/csvfunctions';
+	import { addMinutesToTime, getTodaysPrayerTimes } from '$lib/helpers/prayertimeFunctions';
+	import { prayerTimesStore } from '$lib/stores/prayertimeStore';
 	import { onMount } from 'svelte';
 	import { quintOut } from 'svelte/easing';
 	import { fade, fly, slide } from 'svelte/transition';

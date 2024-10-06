@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { datestore } from '$lib/date/dateStore';
-	import { incrementDate, decrementDate } from '$lib/date/date';
+	import { datestore } from '$lib/stores/dateStore';
 	import CalendarMcc from '$lib/icons/calendar-mcc.svelte';
 	import LeftMcc from '$lib/icons/left-mcc.svelte';
 	import RightMcc from '$lib/icons/right-mcc.svelte';
-	import { getTodaysPrayerTimes } from '$lib/prayertimes/prayertimeFunctions';
-	import { loadCsvData } from '$lib/csv/csvfunctions';
-	import { reformatDate } from '$lib/date/dateFunctions';
+	import { getTodaysPrayerTimes } from '$lib/helpers/prayertimeFunctions';
+	import { loadCsvData } from '$lib/helpers/csvfunctions';
+	import { decrementDate, incrementDate, reformatDate } from '$lib/helpers/dateFunctions';
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import MediaQuery from './MediaQuery.svelte';

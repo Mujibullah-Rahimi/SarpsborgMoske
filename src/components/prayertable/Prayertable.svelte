@@ -1,33 +1,22 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
-	import { loadCsvData } from '$lib/csv/csvfunctions';
-	import { getTodaysPrayerTimes } from '$lib/prayertimes/prayertimeFunctions';
-	import { prayerTimesStore } from '$lib/prayertimes/prayertimeStore';
+	import { loadCsvData } from '$lib/helpers/csvfunctions';
+	import { addMinutesToTime, getTodaysPrayerTimes } from '$lib/helpers/prayertimeFunctions';
+	import { prayerTimesStore } from '$lib/stores/prayertimeStore';
+	import { fixedIqamahStore, type IqamahTimes } from '$lib/stores/iqamahStore';
+	import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
 
-	// Function to add minutes to a time string (e.g., "05:12")
-	/**
-	 * @param {string} timeStr
-	 * @param {number} minutesToAdd
-	 */
-	function addMinutesToTime(timeStr, minutesToAdd) {
-		if (typeof timeStr !== 'string') {
-			console.error('Invalid time string');
-			return ''; // return empty string or handle error appropriately
-		}
+	let iqamahTimes: IqamahTimes;
+	$: iqamahTimes = $fixedIqamahStore;
 
-		const [hours, minutes] = timeStr.split(':').map(Number); // Split time into hours and minutes
-		const time = new Date();
-		time.setHours(hours);
-		time.setMinutes(minutes + minutesToAdd);
-
-		// Return the new time as "HH:MM" format
-		return time.toTimeString().slice(0, 5);
-	}
+	let prayerTimes;
+	$: prayerTimes = $prayerTimesStore;
 
 	// Load the CSV file and update the prayer times on component mount
 	onMount(async () => {
 		const csvData = await loadCsvData('/assets/bonnetider2024.csv');
 		getTodaysPrayerTimes(csvData);
+		listenToIqamahTimes();
 	});
 </script>
 
@@ -48,7 +37,11 @@
 				<h2 class="time">{$prayerTimesStore.fajr}</h2>
 			</div>
 			<div class="fajr-iqamah">
-				<h2 class="time">{addMinutesToTime($prayerTimesStore.fajr, 15)}</h2>
+				{#if iqamahTimes.fajr.type === 'relative' && typeof iqamahTimes.fajr.iqamah === 'number'}
+					<h2 class="time">{addMinutesToTime($prayerTimesStore.fajr, iqamahTimes.fajr.iqamah)}</h2>
+				{:else}
+					<h2 class="time">{iqamahTimes.fajr.iqamah}</h2>
+				{/if}
 			</div>
 		</div>
 
@@ -59,7 +52,13 @@
 				<h2 class="time">{$prayerTimesStore.dhuhr}</h2>
 			</div>
 			<div class="dhuhr-iqamah">
-				<h2 class="time">14:00</h2>
+				{#if iqamahTimes.dhuhr.type === 'relative' && typeof iqamahTimes.dhuhr.iqamah === 'number'}
+					<h2 class="time">
+						{addMinutesToTime($prayerTimesStore.dhuhr, iqamahTimes.dhuhr.iqamah)}
+					</h2>
+				{:else}
+					<h2 class="time">{iqamahTimes.dhuhr.iqamah}</h2>
+				{/if}
 			</div>
 		</div>
 
@@ -70,7 +69,11 @@
 				<h2 class="time">{$prayerTimesStore.asr}</h2>
 			</div>
 			<div class="asr-iqamah">
-				<h2 class="time">16:30</h2>
+				{#if iqamahTimes.asr.type === 'relative' && typeof iqamahTimes.asr.iqamah === 'number'}
+					<h2 class="time">{addMinutesToTime($prayerTimesStore.asr, iqamahTimes.asr.iqamah)}</h2>
+				{:else}
+					<h2 class="time">{iqamahTimes.asr.iqamah}</h2>
+				{/if}
 			</div>
 		</div>
 
@@ -81,7 +84,13 @@
 				<h2 class="time">{$prayerTimesStore.maghrib}</h2>
 			</div>
 			<div class="maghrib-iqamah">
-				<h2 class="time">{$prayerTimesStore.maghrib}</h2>
+				{#if iqamahTimes.maghrib.type === 'relative' && typeof iqamahTimes.maghrib.iqamah === 'number'}
+					<h2 class="time">
+						{addMinutesToTime($prayerTimesStore.maghrib, iqamahTimes.maghrib.iqamah)}
+					</h2>
+				{:else}
+					<h2 class="time">{iqamahTimes.maghrib.iqamah}</h2>
+				{/if}
 			</div>
 		</div>
 
@@ -92,7 +101,11 @@
 				<h2 class="time">{$prayerTimesStore.isha}</h2>
 			</div>
 			<div class="isha-iqamah">
-				<h2 class="time">{addMinutesToTime($prayerTimesStore.isha, 10)}</h2>
+				{#if iqamahTimes.isha.type === 'relative' && typeof iqamahTimes.isha.iqamah === 'number'}
+					<h2 class="time">{addMinutesToTime($prayerTimesStore.isha, iqamahTimes.isha.iqamah)}</h2>
+				{:else}
+					<h2 class="time">{iqamahTimes.isha.iqamah}</h2>
+				{/if}
 			</div>
 		</div>
 
@@ -100,7 +113,9 @@
 		<div class="jumuah box">
 			<h2 class="title">JUMUAH</h2>
 			<div class="khutba">
-				<h2 class="time">14:00</h2>
+				<h2 class="time">
+					{iqamahTimes.jumuah.iqamah}
+				</h2>
 			</div>
 		</div>
 	</div>

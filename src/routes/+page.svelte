@@ -18,6 +18,11 @@
 	import Datepicker from '../components/Datepicker.svelte';
 	import JoinPopup from '../components/Popup/JoinPopup.svelte';
 	import SupportPopup from '../components/Popup/SupportPopup.svelte';
+	import Footer from '../components/footer/Footer.svelte';
+	import Mobilefooter from '../components/footer/Mobilefooter.svelte';
+	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
+	import Navbar from '../components/navbar/Navbar.svelte';
+	import { goto } from '$app/navigation';
 
 	let openJointoggle = false;
 	let openSupportToggle = false;
@@ -30,7 +35,8 @@
 </script>
 
 <svelte:head></svelte:head>
-
+<Navbar />
+<Mobilenavbar />
 <MediaQuery query="(min-width: 936px)" let:matches>
 	{#if matches}
 		<body>
@@ -143,7 +149,8 @@
 								text="Se ulike måter du kan gi veldedighet på, for å nytte deg i dette liv og neste"
 							/>
 						</div>
-						<div class="event">
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+						<div class="event" on:click={()=>{goto("/#Bønnetabell")}}>
 							<Eventcard
 								source={Fridaypic}
 								altText="Fredagsbønn"
@@ -409,6 +416,11 @@
 	{/if}
 </MediaQuery>
 
+<footer>
+	<Footer />
+	<Mobilefooter />
+</footer>
+
 <style lang="scss">
 	body {
 		overflow-x: clip;
@@ -603,6 +615,7 @@
 					gap: 5%;
 					.event {
 						width: 33%;
+						cursor: pointer;
 					}
 				}
 			}
@@ -917,5 +930,11 @@
 				}
 			}
 		}
+	}
+
+	footer {
+		left: 0;
+		position: absolute;
+		width: 100%;
 	}
 </style>
