@@ -1,11 +1,8 @@
 <script lang="ts">
 	import type { Unsubscriber } from 'svelte/store';
 	import { onMount } from 'svelte';
-	import { type User } from 'firebase/auth';
-	import { authStore, isLoggedIn, loginUser } from './auth';
+	import { authStore, loginUser } from './auth';
 	import { goto } from '$app/navigation';
-	import { auth } from '$lib/firebase/firebase.client';
-	import { fbGetUserDoc } from '$lib/firebase/firebaseFunctions';
 	import LeftMcc from '$lib/icons/left-mcc.svelte';
 
 	let email = '';

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-
-import { db } from "./firebase.client";
+import { getDbInstance } from "./firebase.client"; // Lazy loading Firestore
 import type { mccUser } from "../../components/mccUser";
 import { fixedIqamahStore, type IqamahTimes } from "$lib/stores/iqamahStore";
 
 export async function fbGetUserDoc(userUid: string) {
+    const db = getDbInstance(); // Get Firestore instance lazily
     const res = await getDoc(doc(db, 'users', userUid));
 
     if (res.exists()) {
@@ -17,34 +17,23 @@ export async function fbGetUserDoc(userUid: string) {
 }
 
 export async function fbAddToUsers(newUser: mccUser) {
+    const db = getDbInstance(); // Get Firestore instance lazily
     const string = JSON.stringify(newUser);
     const userObj = JSON.parse(string);
-    const res = await setDoc(doc(db, 'users', newUser.id), userObj);
+    await setDoc(doc(db, 'users', newUser.id), userObj);
 }
 
-// export async function fbAddToNewsletter(email: string){
-//     let subscriber = new mccSubscriber(email, email);
-//     let string = JSON.stringify(subscriber);
-//     let subscriberObj = JSON.parse(string);
-//     try {
-//         await setDoc(doc(db, 'newsletterlist', subscriberObj.id), subscriberObj).then(() => {
-//             createToast('success', 'Subscribed!')
-//         })
-//     } catch (error) {
-//         createToast('error', 'Subscribtion failed')
-//         console.log('fbAddToUsers',error)
-//     }
-// }
-
-export async function fbVerifyEmail(uid :string) {
+export async function fbVerifyEmail(uid: string) {
+    const db = getDbInstance(); // Get Firestore instance lazily
     const userRef = doc(db, 'users', uid);
 
     await updateDoc(userRef, {
-        emailVerified : true
+        emailVerified: true
     });
 }
 
-export async function updateIqamahTimes(updatedTimes: Partial<IqamahTimes>) { 
+export async function updateIqamahTimes(updatedTimes: Partial<IqamahTimes>) {
+    const db = getDbInstance(); // Get Firestore instance lazily
     const iqamahDocRef = doc(db, 'prayertimes', 'iqamahTimes');
 
     try {
@@ -56,6 +45,7 @@ export async function updateIqamahTimes(updatedTimes: Partial<IqamahTimes>) {
 }
 
 export async function getIqamahTimes() {
+    const db = getDbInstance(); // Get Firestore instance lazily
     const iqamahDocRef = doc(db, 'prayertimes', 'iqamahTimes');
     
     try {

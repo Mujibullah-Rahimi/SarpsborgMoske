@@ -3,18 +3,19 @@
 	import { dev } from '$app/environment';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import NotificationToast from '../components/Toast/NotificationToast.svelte';
-	import { auth } from '$lib/firebase/firebase.client';
+	import { getAuthInstance } from '$lib/firebase/firebase.client';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
 	import { authStore } from './(admin)/login/auth';
-	import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
-	import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
 
 	injectSpeedInsights();
 
 	inject({ mode: dev ? 'development' : 'production' });
 
 	onMount(() => {
+		// Lazily get the auth instance
+		const auth = getAuthInstance();
+
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				authStore.update((curr) => ({
@@ -30,7 +31,6 @@
 				}));
 			}
 		});
-		
 	});
 </script>
 

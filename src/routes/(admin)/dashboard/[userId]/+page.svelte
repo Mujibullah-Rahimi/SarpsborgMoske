@@ -2,138 +2,140 @@
 	import { onMount } from 'svelte';
 	import { authStore } from '../../login/auth';
 	import { goto } from '$app/navigation';
-	import { onAuthStateChanged } from 'firebase/auth';
-	import { auth } from '$lib/firebase/firebase.client';
-	import { fbGetUserDoc } from '$lib/firebase/firebaseFunctions';
+	import { fbGetUserDoc, updateIqamahTimes } from '$lib/firebase/firebaseFunctions';
 	import AdminNavbar from '../../../../components/navbar/AdminNavbar.svelte';
-	import type { Handle } from '@sveltejs/kit';
 	import { fixedIqamahStore } from '$lib/stores/iqamahStore';
-	import { updateIqamahTimes } from '$lib/firebase/firebaseFunctions';
 	import { createToast } from '../../../../components/Toast/toastStore';
-
-	
+	import type { Handle } from '@sveltejs/kit';
+  
 	let fsUser = null;
-
-	onMount(() => {
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				fbGetUserDoc(user.uid).then((res: any) => {
-					authStore.update((curr: any) => {
-						return { ...curr, currentUser: res };
-					});
-					fsUser = res;
-				});
-			} else {
-				goto('/login');
-			}
-		});
+  
+	async function loadFirebaseAuth() {
+	  const { getAuth, onAuthStateChanged } = await import('firebase/auth');
+	  const { getAuthInstance } = await import('$lib/firebase/firebase.client');
+	  return { auth: getAuthInstance(), onAuthStateChanged };
+	}
+  
+	onMount(async () => {
+	  const { auth, onAuthStateChanged } = await loadFirebaseAuth();
+  
+	  onAuthStateChanged(auth, async (user) => {
+		if (user) {
+		  const res = await fbGetUserDoc(user.uid);
+		  authStore.update((curr: any) => {
+			return { ...curr, currentUser: res };
+		  });
+		  fsUser = res;
+		} else {
+		  goto('/login');
+		}
+	  });
 	});
-
-	export const handle: Handle = async ({ event, resolve }) => {
-		const user = auth.currentUser;
-
-		if (event.url.pathname.startsWith('/dashboard')) {
-			if (!user) {
-				return Response.redirect('/', 302);
-			}
+  
+	export const handle : Handle = async ({ event, resolve }) => {
+	  const { getAuthInstance } = await import('$lib/firebase/firebase.client');
+	  const auth = getAuthInstance();
+	  const user = auth.currentUser;
+  
+	  if (event.url.pathname.startsWith('/dashboard')) {
+		if (!user) {
+		  return Response.redirect('/', 302);
 		}
-
-		if (event.url.pathname === '/login' && user) {
-			return Response.redirect(`/dashboard/${user.uid}`, 302);
-		}
-
-		return resolve(event);
+	  }
+  
+	  if (event.url.pathname === '/login' && user) {
+		return Response.redirect(`/dashboard/${user.uid}`, 302);
+	  }
+  
+	  return resolve(event);
 	};
-
+  
 	let iqamahTimes = $fixedIqamahStore;
-
+  
 	type Prayer = {
-		name: string;
-		type: string;
-		time: string | number;
+	  name: string;
+	  type: string;
+	  time: string | number;
 	};
-
-
+  
 	let prayers: Prayer[] = [
-		{
-			name: 'fajr',
-			type: iqamahTimes?.fajr?.type ?? 'relative',
-			time: iqamahTimes?.fajr?.iqamah ?? 15
-		},
-		{
-			name: 'dhuhr',
-			type: iqamahTimes?.dhuhr?.type ?? 'fixed',
-			time: iqamahTimes?.dhuhr?.iqamah ?? '00:00'
-		},
-		{
-			name: 'asr',
-			type: iqamahTimes?.asr?.type ?? 'relative',
-			time: iqamahTimes?.asr?.iqamah ?? 15
-		},
-		{
-			name: 'maghrib',
-			type: iqamahTimes?.maghrib?.type ?? 'fixed',
-			time: iqamahTimes?.maghrib?.iqamah ?? '00:00'
-		},
-		{
-			name: 'isha',
-			type: iqamahTimes?.isha?.type ?? 'relative',
-			time: iqamahTimes?.isha?.iqamah ?? 15
-		},
-		{
-			name: 'jumuah',
-			type: iqamahTimes?.jumuah?.type ?? 'relative',
-			time: iqamahTimes?.jumuah?.iqamah ?? 0
-		}
+	  {
+		name: 'fajr',
+		type: iqamahTimes?.fajr?.type ?? 'relative',
+		time: iqamahTimes?.fajr?.iqamah ?? 15
+	  },
+	  {
+		name: 'dhuhr',
+		type: iqamahTimes?.dhuhr?.type ?? 'fixed',
+		time: iqamahTimes?.dhuhr?.iqamah ?? '00:00'
+	  },
+	  {
+		name: 'asr',
+		type: iqamahTimes?.asr?.type ?? 'relative',
+		time: iqamahTimes?.asr?.iqamah ?? 15
+	  },
+	  {
+		name: 'maghrib',
+		type: iqamahTimes?.maghrib?.type ?? 'fixed',
+		time: iqamahTimes?.maghrib?.iqamah ?? '00:00'
+	  },
+	  {
+		name: 'isha',
+		type: iqamahTimes?.isha?.type ?? 'relative',
+		time: iqamahTimes?.isha?.iqamah ?? 15
+	  },
+	  {
+		name: 'jumuah',
+		type: iqamahTimes?.jumuah?.type ?? 'relative',
+		time: iqamahTimes?.jumuah?.iqamah ?? 0
+	  }
 	];
-
+  
 	let selectedPrayers: string[] = [];
 	let isFormValid = false;
-
+  
 	function validateForm() {
-		// Check if at least one prayer is selected
-		if (selectedPrayers.length === 0) {
-			isFormValid = false;
-			return;
+	  if (selectedPrayers.length === 0) {
+		isFormValid = false;
+		return;
+	  }
+  
+	  isFormValid = selectedPrayers.every((prayerName) => {
+		const prayer = prayers.find((p) => p.name === prayerName);
+		if (!prayer) return false;
+  
+		if (prayer.type === 'relative') {
+		  const timeValue = +prayer.time; // Ensure `prayer.time` is a number
+		  return Number.isInteger(timeValue) && timeValue >= 0 && timeValue <= 60;
+		} else if (prayer.type === 'fixed') {
+		  return /\d{2}:\d{2}/.test(prayer.time as string); // Check valid time format
 		}
-
-		isFormValid = selectedPrayers.every((prayerName) => {
-			const prayer = prayers.find((p) => p.name === prayerName);
-			if (!prayer) return false;
-
-			// Validate based on type
-			if (prayer.type === 'relative') {
-				const timeValue = +prayer.time; // Ensure `prayer.time` is a number
-				return Number.isInteger(timeValue) && timeValue >= 0 && timeValue <= 60;
-			} else if (prayer.type === 'fixed') {
-				return /\d{2}:\d{2}/.test(prayer.time as string); // Check valid time format
-			}
-			return false;
-		});
+		return false;
+	  });
 	}
-
+  
 	async function handleSave() {
-    const updatedTimes: Record<string, { type: string; iqamah: string | number }> = {};
-
-    prayers.forEach((prayer) => {
-      if (selectedPrayers.includes(prayer.name)) {
-        updatedTimes[prayer.name] = { type: prayer.type, iqamah: prayer.time };
-      }
-    });
-
-    if (isFormValid) {
-      try {
-        await updateIqamahTimes(updatedTimes);
-        createToast('success', 'Bønnetider er oppdatert'); // Success toast
-      } catch (error) {
-        createToast('error', 'Det oppstod en feil under oppdatering'); // Error toast
-      }
-    }
-  }
-
+	  const updatedTimes: Record<string, { type: string; iqamah: string | number }> = {};
+  
+	  prayers.forEach((prayer) => {
+		if (selectedPrayers.includes(prayer.name)) {
+		  updatedTimes[prayer.name] = { type: prayer.type, iqamah: prayer.time };
+		}
+	  });
+  
+	  if (isFormValid) {
+		try {
+		  await updateIqamahTimes(updatedTimes);
+		  createToast('success', 'Bønnetider er oppdatert');
+		} catch (error) {
+		  createToast('error', 'Det oppstod en feil under oppdatering');
+		}
+	  }
+	}
+  
 	$: selectedPrayers, validateForm();
 	$: prayers, validateForm();
-</script>
+  </script>
 
 <AdminNavbar />
 
