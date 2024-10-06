@@ -38,7 +38,7 @@
 
 	onMount(async () => {
 		await getIqamahTimes(); // Fetch Iqamah times manually on load
-		listenToIqamahTimes(); // Set up real-time listener for updates
+		// listenToIqamahTimes(); // Set up real-time listener for updates
 	});
 </script>
 
