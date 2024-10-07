@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
-	import LeftMcc from "$lib/icons/left-mcc.svelte";
-	import { loginUser } from "../Login/auth";
-	
+	import { goto } from '$app/navigation';
+	import LeftMcc from '$lib/icons/left-mcc.svelte';
+	import { loginUser } from '../Login/auth';
 
-    let email = "";
-    let password = "";
+	let email = '';
+	let password = '';
 
-    function goHome(){
-        goto("/");
-    }
+	function goHome() {
+		goto('/');
+	}
 
-    async function handleLogin() {
+	async function handleLogin() {
 		// isLoading = true;
 		// errorMessage = '';
 		await loginUser(email, password);
@@ -19,11 +18,10 @@
 			// isLoading = false;
 		}, 3000);
 	}
-
 </script>
 
 <svelte:head>
-    <title>Sarpsborg Moske | Innlogging</title>
+	<title>Sarpsborg Moske | Innlogging</title>
 </svelte:head>
 
 <div class="login-container">
@@ -49,7 +47,6 @@
 			/>
 			<button type="submit"><p>Logg inn</p></button>
 		</form>
-
 	</div>
 </div>
 
@@ -61,98 +58,92 @@
 		align-items: center;
 		height: 100vh;
 		background-color: var(--green-secondary);
-	}
 
-	.login-box {
-		background-color: var(--white);
-		padding: 2rem;
-		border-radius: 15px;
-		box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.2);
-		max-width: 400px;
-		width: 100%;
-		text-align: center;
+		.login-box {
+			background-color: var(--white);
+			padding: 2rem;
+			border-radius: 15px;
+			box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.2);
+			max-width: 400px;
+			width: 100%;
+			text-align: center;
 
-		.header {
-			display: flex;
-			margin-bottom: 20px;
+			.header {
+				display: flex;
+				margin-bottom: 20px;
 
-			h1 {
-				text-align: center;
-				flex: 1;
+				.home-btn {
+					cursor: pointer;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					position: relative; // Ensures tooltip is positioned relative to this element
+
+					&:hover .tooltiptext {
+						visibility: visible;
+						opacity: 1;
+						transform: translateX(5px) translateY(-10px); // Shift right and up
+					}
+				}
+
+				h1 {
+					text-align: center;
+					flex: 1;
+				}
 			}
 
-			.home-btn {
-				cursor: pointer;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				position: relative; // Ensures tooltip is positioned relative to this element
-				transition: 0.3s ease-in-out;
-				&:hover{
-					transform:translateX(-3px);
+			.error {
+				color: red;
+				margin-bottom: 1rem;
+			}
+
+			form {
+				input {
+					width: 100%;
+					padding: 0.8rem;
+					margin-bottom: 1.5rem;
+					border-radius: 8px;
+					border: 1px solid var(--green-primary);
 				}
-				&:hover .tooltiptext {
-					visibility: visible;
-					opacity: 1;
-					transform: translateX(5px) translateY(-10px); // Shift right and up
+
+				button {
+					width: 100%;
+					padding: 0.8rem;
+					background-color: var(--green-primary);
+					color: var(--white);
+					border: none;
+					border-radius: 8px;
+					cursor: pointer;
+					&:disabled {
+						background-color: var(--green-secondary);
+						cursor: not-allowed;
+					}
+				}
+			}
+
+			.tooltip {
+				position: relative;
+				display: inline-block;
+
+				.tooltiptext {
+					visibility: hidden;
+					width: fit-content;
+					background-color: var(--green-primary);
+					color: #fff;
+					text-align: center;
+					padding: 5px;
+					border-radius: 6px;
+					position: absolute;
+					left: 50%;
+					top: -40px;
+					transform: translateX(-25%);
+					opacity: 0;
+					transition:
+						opacity 0.2s ease-in-out,
+						transform 0.2s ease-in-out;
+					z-index: 1;
 				}
 			}
 		}
-	}
-
-	/* Tooltip container */
-	.tooltip {
-		position: relative;
-		display: inline-block;
-	}
-
-	/* Tooltip text */
-	.tooltip .tooltiptext {
-		visibility: hidden;
-		width: auto; /* Allow tooltip width to adjust based on content */
-		background-color: var(--green-primary);
-		color: #fff;
-		text-align: center;
-		padding: 5px;
-		border-radius: 6px;
-		position: absolute;
-		left: 50%; // Center horizontally
-		top: -40px; // Place it above the icon
-		transform: translateX(-5%);
-		opacity: 0;
-		transition:
-			opacity 0.2s ease-in-out,
-			transform 0.2s ease-in-out;
-		z-index: 1;
-
-		white-space: nowrap; /* Prevent line break */
-	}
-
-	input {
-		width: 100%;
-		padding: 0.8rem;
-		margin-bottom: 1.5rem;
-		border-radius: 8px;
-		border: 1px solid var(--green-primary);
-	}
-
-	button {
-		width: 100%;
-		padding: 0.8rem;
-		background-color: var(--green-primary);
-		color: var(--white);
-		border: none;
-		border-radius: 8px;
-		cursor: pointer;
-	}
-
-	button:disabled {
-		background-color: var(--green-secondary);
-		cursor: not-allowed;
-	}
-
-	.error {
-		color: red;
-		margin-bottom: 1rem;
 	}
 </style>
