@@ -6,15 +6,19 @@ import { goto } from '$app/navigation';
 import { fbGetUserDoc, fbAddToUsers } from '$lib/firebase/firebaseFunctions';
 import { createToast } from '../../../components/Toast/toastStore';
 import { authStore } from '$lib/stores/authStore';
-import { getAuth, browserSessionPersistence, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail, updatePassword, sendEmailVerification, onAuthStateChanged, setPersistence } from 'firebase/auth';
+import {
+	browserSessionPersistence,
+	signInWithEmailAndPassword,
+	signOut,
+	sendEmailVerification,
+	onAuthStateChanged,
+	setPersistence
+} from 'firebase/auth';
 import { getAuthInstance } from '$lib/firebase/firebase.client';
 
 const auth = getAuthInstance();
 
 export const authHandlers = {
-	signup: async (email: string, password: string) => {
-		await createUserWithEmailAndPassword(auth, email, password);
-	},
 	login: async (email: string, password: string) => {
 		return await setPersistence(auth, browserSessionPersistence).then(() => {
 			return signInWithEmailAndPassword(auth, email, password)
@@ -32,15 +36,6 @@ export const authHandlers = {
 		await signOut(auth).then(() => {
 			createToast('success', 'Du er nå logget ut');
 		});
-	},
-	resetPassword: async (email: string) => {
-		await sendPasswordResetEmail(auth, email);
-	},
-	updatePassword: async (user: any, password: string) => {
-		await updatePassword(user, password);
-	},
-	verifyEmail: async (user: any) => {
-		await sendEmailVerification(user);
 	}
 };
 
@@ -85,24 +80,6 @@ export async function loginUser(email: string, password: string) {
 	} catch (error) {
 		console.error(error);
 	}
-}
-
-export async function signUpUser(
-	email: string,
-	password: string,
-	firstname: string,
-	lastname: string
-) {
-	await authHandlers.signup(email, password).then((res: any) => {
-		if (auth.currentUser !== null) {
-			const user: mccUser = new mccUser(auth.currentUser.uid, firstname, lastname, email, false);
-			const register = fbAddToUsers(user).then((res: any) => {
-				loginUser(email, password);
-			});
-
-			authHandlers.verifyEmail(auth.currentUser);
-		}
-	});
 }
 
 export { authStore };

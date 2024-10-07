@@ -26,7 +26,7 @@
 	async function handleLogin() {
 		isLoading = true;
 		errorMessage = '';
-		await loginUser(email, password);
+		// await loginUser(email, password);
 		setTimeout(() => {
 			isLoading = false;
 		}, 3000);
