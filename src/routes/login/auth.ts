@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { derived } from 'svelte/store';
-import { mccUser } from '../../../components/mccUser';
+import { mccUser } from '../../components/mccUser';
 import { goto } from '$app/navigation';
 import { fbGetUserDoc, fbAddToUsers } from '$lib/firebase/firebaseFunctions';
-import { createToast } from '../../../components/Toast/toastStore';
+import { createToast } from '../../components/Toast/toastStore';
 import { authStore } from '$lib/stores/authStore';
 import {
 	browserSessionPersistence,
