@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { getDbInstance } from "./firebase.client"; // Lazy loading Firestore
-import type { mccUser } from "../../components/mccUser";
 import { fixedIqamahStore, type IqamahTimes } from "$lib/stores/iqamahStore";
+import type { mccUser } from "../../components/mccUser";
 
+// Lazy-load Firestore instance within the functions
 export async function fbGetUserDoc(userUid: string) {
+    const { getDbInstance } = await import('./firebase.client'); // Dynamic import
     const db = getDbInstance(); // Get Firestore instance lazily
     const res = await getDoc(doc(db, 'users', userUid));
 
@@ -17,6 +18,7 @@ export async function fbGetUserDoc(userUid: string) {
 }
 
 export async function fbAddToUsers(newUser: mccUser) {
+    const { getDbInstance } = await import('./firebase.client'); // Dynamic import
     const db = getDbInstance(); // Get Firestore instance lazily
     const string = JSON.stringify(newUser);
     const userObj = JSON.parse(string);
@@ -24,6 +26,7 @@ export async function fbAddToUsers(newUser: mccUser) {
 }
 
 export async function fbVerifyEmail(uid: string) {
+    const { getDbInstance } = await import('./firebase.client'); // Dynamic import
     const db = getDbInstance(); // Get Firestore instance lazily
     const userRef = doc(db, 'users', uid);
 
@@ -33,6 +36,7 @@ export async function fbVerifyEmail(uid: string) {
 }
 
 export async function updateIqamahTimes(updatedTimes: Partial<IqamahTimes>) {
+    const { getDbInstance } = await import('./firebase.client'); // Dynamic import
     const db = getDbInstance(); // Get Firestore instance lazily
     const iqamahDocRef = doc(db, 'prayertimes', 'iqamahTimes');
 
@@ -45,6 +49,7 @@ export async function updateIqamahTimes(updatedTimes: Partial<IqamahTimes>) {
 }
 
 export async function getIqamahTimes() {
+    const { getDbInstance } = await import('./firebase.client'); // Dynamic import
     const db = getDbInstance(); // Get Firestore instance lazily
     const iqamahDocRef = doc(db, 'prayertimes', 'iqamahTimes');
     

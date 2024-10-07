@@ -1,16 +1,16 @@
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
-import { getDbInstance } from '$lib/firebase/firebase.client'; // Import the lazy-load function for Firestore
+import { type DocumentSnapshot, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { fixedIqamahStore, type IqamahTimes } from '$lib/stores/iqamahStore';
 
 // Real-time listener for Iqamah times in Firestore
-export function listenToIqamahTimes() {
-    // Get the Firestore instance lazily
-    const db = getDbInstance();
+export async function listenToIqamahTimes() {
+    // Dynamically import Firestore functions and get the Firestore instance lazily
+    const { getDbInstance } = await import('$lib/firebase/firebase.client');
+    const db = getDbInstance(); // Lazy-load Firestore instance
 
     const iqamahDocRef = doc(db, 'prayertimes', 'iqamahTimes');
 
     // Listen to real-time changes from Firestore
-    onSnapshot(iqamahDocRef, (docSnapshot) => {
+    onSnapshot(iqamahDocRef, (docSnapshot: DocumentSnapshot) => {
         if (docSnapshot.exists()) {
             const data = docSnapshot.data() as IqamahTimes; // Cast to IqamahTimes
             fixedIqamahStore.set(data); // Update the Svelte store with the new data
@@ -22,6 +22,8 @@ export function listenToIqamahTimes() {
 
 // Manual fetch function for Iqamah times (non-real-time)
 export async function getIqamahTimesOnce() {
+    // Dynamically import Firestore functions and get the Firestore instance lazily
+    const { getDbInstance } = await import('$lib/firebase/firebase.client');
     const db = getDbInstance(); // Lazy-load Firestore instance
     const iqamahDocRef = doc(db, 'prayertimes', 'iqamahTimes');
 

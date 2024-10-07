@@ -3,8 +3,6 @@
 	import { dev } from '$app/environment';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import NotificationToast from '../components/Toast/NotificationToast.svelte';
-	import { getAuthInstance } from '$lib/firebase/firebase.client';
-	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
 	import { authStore } from './(admin)/login/auth';
 
@@ -12,7 +10,11 @@
 
 	inject({ mode: dev ? 'development' : 'production' });
 
-	onMount(() => {
+	// Dynamically import Firebase Auth and update authStore
+	onMount(async () => {
+		const { getAuthInstance } = await import('$lib/firebase/firebase.client'); // Lazy load
+		const { onAuthStateChanged } = await import('firebase/auth'); // Lazy load Firebase auth
+
 		// Lazily get the auth instance
 		const auth = getAuthInstance();
 
