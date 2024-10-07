@@ -1,32 +1,31 @@
 <script lang="ts">
+	import { getAuthInstance } from '$lib/firebase/firebase.client';
+	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
-	import { authStore } from '../../Login/auth';
-	import { goto } from '$app/navigation';
 	import { fbGetUserDoc, updateIqamahTimes } from '$lib/firebase/firebaseFunctions';
+	import { authStore } from '$lib/stores/authStore';
+	import { goto } from '$app/navigation';
 	import { fixedIqamahStore } from '$lib/stores/iqamahStore';
 	import type { Handle } from '@sveltejs/kit';
-	import { createToast } from '../../../../components/Toast/toastStore';
 	import AdminNavbar from '../../../../components/navbar/AdminNavbar.svelte';
+	import { createToast } from '../../../../components/Toast/toastStore';
 
 	let fsUser = null;
 
-	async function loadFirebaseAuth() {
-		const { getAuth, onAuthStateChanged } = await import('firebase/auth');
-		const { getAuthInstance } = await import('$lib/firebase/firebase.client');
-		return { auth: getAuthInstance(), onAuthStateChanged };
-	}
-
-	onMount(async () => {
-		const { auth, onAuthStateChanged } = await loadFirebaseAuth();
+	onMount(() => {
+		const auth = getAuthInstance(); // Get the Firebase Auth instance
 
 		onAuthStateChanged(auth, async (user) => {
 			if (user) {
+				// Fetch user data from Firestore
 				const res = await fbGetUserDoc(user.uid);
+				// Update the authStore with the fetched user data
 				authStore.update((curr: any) => {
 					return { ...curr, currentUser: res };
 				});
 				fsUser = res;
 			} else {
+				// Redirect to login page if user is not authenticated
 				goto('/login');
 			}
 		});
@@ -136,6 +135,10 @@
 	$: selectedPrayers, validateForm();
 	$: prayers, validateForm();
 </script>
+
+<svelte:head>
+	<title>Sarpsborg Moske | Administrasjonspanel</title>
+</svelte:head>
 
 <AdminNavbar />
 

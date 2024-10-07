@@ -47,7 +47,7 @@ export async function logoutUser() {
 		currentUser: null,
 		mccUser: null
 	}));
-	goto('/');
+	goto('/login');
 }
 
 export async function loginUser(email: string, password: string) {

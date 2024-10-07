@@ -3,30 +3,18 @@
 	import LeftMcc from '$lib/icons/left-mcc.svelte';
 	import { onMount } from 'svelte';
 	import type { Unsubscriber } from 'svelte/store';
-	import { authStore, loginUser } from '../Login/auth';
+	import { authStore } from '$lib/stores/authStore';
+	import { loginUser } from './auth';
 
 	let email = '';
 	let password = '';
+	let errorMessage = '';
+	let isLoading = false;
+	let unsubscribe: Unsubscriber;
 
 	function goHome() {
 		goto('/');
 	}
-
-	let errorMessage = '';
-	let isLoading = false;
-
-	let unsubscribe: Unsubscriber;
-
-	onMount(() => {
-		unsubscribe = authStore.subscribe(($authStore) => {
-			if ($authStore.isLoggedIn && $authStore.currentUser) {
-				// Redirect to the dashboard with the user ID if already logged in
-				goto('/dashboard/' + $authStore.currentUser.uid);
-			}
-		});
-		return () => unsubscribe(); // Clean up the subscription
-	});
-
 	async function handleLogin() {
 		isLoading = true;
 		errorMessage = '';
@@ -35,6 +23,16 @@
 			isLoading = false;
 		}, 3000);
 	}
+	onMount(() => {
+		unsubscribe = authStore.subscribe(($authStore) => {
+			// console.log('Auth Store Changed:', $authStore); // Debugging step
+			if ($authStore.isLoggedIn && $authStore.currentUser) {
+				// console.log('Redirecting to dashboard');
+				goto('/dashboard/' + $authStore.currentUser.uid);
+			}
+		});
+		return () => unsubscribe();
+	});
 </script>
 
 <svelte:head>
@@ -44,8 +42,7 @@
 <div class="login-container">
 	<div class="login-box">
 		<div class="header">
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
 			<div class="home-btn" on:click={goHome}>
 				<LeftMcc controlsWidth="20" />
 			</div>
@@ -65,12 +62,14 @@
 				required
 				autocomplete="current-password"
 			/>
-			<button type="submit" disabled={isLoading}><p>Logg inn</p></button>
+			<button type="submit" disabled={isLoading}>
+				{#if isLoading}
+					<p>Logger inn...</p>
+				{:else}
+					<p>Logg inn</p>
+				{/if}
+			</button>
 		</form>
-
-		{#if isLoading}
-			<p>Logger inn...</p>
-		{/if}
 	</div>
 </div>
 

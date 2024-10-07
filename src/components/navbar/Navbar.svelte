@@ -17,6 +17,7 @@
 	};
 
 	const unsubscribe = authStore.subscribe((data) => {
+		// console.log(data);
 		authData = data;
 	});
 

@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	// import { logoutUser } from '../../routes/(admin)/login/auth';
+	import { logoutUser } from '../../routes/(admin)/login/auth';
 	import ButtonStandard from '../ButtonStandard.svelte';
 	import Logo from '../Logo.svelte';
 	import MediaQuery from '../MediaQuery.svelte';
@@ -9,18 +9,15 @@
 	let showPopup = false;
 
 	function handleLogOutClick() {
-		// Open the popup when user clicks "Logg ut"
 		showPopup = true;
 	}
 
-	// function handleConfirmLogout() {
-	// 	// This function will be called when the user confirms logout
-	// 	logoutUser();
-	// 	goto('/login');
-	// }
+	function handleConfirmLogout() {
+		logoutUser();
+		goto('/login');
+	}
 
 	function handleCancelLogout() {
-		// This function will be called when the user cancels logout
 		showPopup = false;
 	}
 </script>
@@ -52,8 +49,7 @@
 	{/if}
 </MediaQuery>
 
-<!-- Include the confirmation popup and pass the required functions -->
-<!-- <ConfirmationPopup open={showPopup} onConfirm={handleConfirmLogout} onCancel={handleCancelLogout} /> -->
+<ConfirmationPopup open={showPopup} onConfirm={handleConfirmLogout} onCancel={handleCancelLogout} /> 
 
 <style lang="scss">
 	nav {
@@ -68,7 +64,7 @@
 	.logo {
 		cursor: pointer;
 	}
-	
+
 	.navbar-btn {
 		display: flex;
 		justify-content: center;
