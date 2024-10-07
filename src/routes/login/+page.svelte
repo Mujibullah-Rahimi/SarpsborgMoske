@@ -5,6 +5,7 @@
 	import type { Unsubscriber } from 'svelte/store';
 	import { authStore } from '$lib/stores/authStore';
 	import { loginUser } from './auth';
+	import MediaQuery from '../../components/MediaQuery.svelte';
 
 	let email = '';
 	let password = '';
@@ -39,39 +40,92 @@
 	<title>Sarpsborg Moske | Innlogging</title>
 </svelte:head>
 
-<div class="login-container">
-	<div class="login-box">
-		<div class="header">
-			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-			<div class="home-btn" on:click={goHome}>
-				<LeftMcc controlsWidth="20" />
-			</div>
-			<h1>Logg inn</h1>
-		</div>
+<MediaQuery query="(min-width: 936px)" let:matches>
+	{#if matches}
+		<div class="login-container">
+			<div class="login-box">
+				<div class="header">
+					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+					<div class="home-btn" on:click={goHome}>
+						<LeftMcc controlsWidth="20" />
+					</div>
+					<h1>Logg inn</h1>
+				</div>
 
-		{#if errorMessage}
-			<p class="error">{errorMessage}</p>
-		{/if}
-
-		<form on:submit|preventDefault={handleLogin}>
-			<input type="email" bind:value={email} placeholder="Epost" required autocomplete="email" />
-			<input
-				type="password"
-				bind:value={password}
-				placeholder="Passord"
-				required
-				autocomplete="current-password"
-			/>
-			<button type="submit" disabled={isLoading}>
-				{#if isLoading}
-					<p>Logger inn...</p>
-				{:else}
-					<p>Logg inn</p>
+				{#if errorMessage}
+					<p class="error">{errorMessage}</p>
 				{/if}
-			</button>
-		</form>
-	</div>
-</div>
+
+				<form on:submit|preventDefault={handleLogin}>
+					<input
+						type="email"
+						bind:value={email}
+						placeholder="Epost"
+						required
+						autocomplete="email"
+					/>
+					<input
+						type="password"
+						bind:value={password}
+						placeholder="Passord"
+						required
+						autocomplete="current-password"
+					/>
+					<button type="submit" disabled={isLoading}>
+						{#if isLoading}
+							<p>Logger inn...</p>
+						{:else}
+							<p>Logg inn</p>
+						{/if}
+					</button>
+				</form>
+			</div>
+		</div>
+	{/if}
+</MediaQuery>
+<MediaQuery query="(max-width: 935px)" let:matches>
+	{#if matches}
+		<div class="mobile-login-container">
+			<div class="login-box">
+				<div class="header">
+					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+					<div class="home-btn" on:click={goHome}>
+						<LeftMcc controlsWidth="20" />
+					</div>
+					<h1>Logg inn</h1>
+				</div>
+
+				{#if errorMessage}
+					<p class="error">{errorMessage}</p>
+				{/if}
+
+				<form on:submit|preventDefault={handleLogin}>
+					<input
+						type="email"
+						bind:value={email}
+						placeholder="Epost"
+						required
+						autocomplete="email"
+					/>
+					<input
+						type="password"
+						bind:value={password}
+						placeholder="Passord"
+						required
+						autocomplete="current-password"
+					/>
+					<button type="submit" disabled={isLoading}>
+						{#if isLoading}
+							<p>Logger inn...</p>
+						{:else}
+							<p>Logg inn</p>
+						{/if}
+					</button>
+				</form>
+			</div>
+		</div>
+	{/if}
+</MediaQuery>
 
 <style>
 	/* Login Container */
@@ -80,8 +134,17 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		flex-grow: 1;
+		height: 100vh;
 		background-color: #d0fae2; /* Green secondary */
+	}
+	.mobile-login-container{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		min-height: 100dvh;
+		background-color: #d0fae2;
 	}
 
 	/* Login Box */
@@ -154,5 +217,4 @@
 		background-color: #d0fae2; /* Green secondary */
 		cursor: not-allowed;
 	}
-
 </style>
