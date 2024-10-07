@@ -3,7 +3,7 @@
 import { derived } from 'svelte/store';
 import { goto } from '$app/navigation';
 import { fbGetUserDoc} from '$lib/firebase/firebaseFunctions';
-import { createToast } from '../../components/Toast/toastStore';
+import { createToast } from '../../../components/Toast/toastStore';
 import { authStore } from '$lib/stores/authStore';
 import {
 	browserSessionPersistence,
