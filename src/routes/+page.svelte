@@ -23,7 +23,7 @@
 	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
 	import Navbar from '../components/navbar/Navbar.svelte';
 	import { goto } from '$app/navigation';
-	// import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
+	import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
 	// import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
 	import { onMount } from 'svelte';
 
@@ -36,10 +36,10 @@
 		openSupportToggle = true;
 	}
 
-	// onMount(async () => {
-	// 	await getIqamahTimes(); // Fetch Iqamah times manually on load
-	// 	// listenToIqamahTimes(); // Set up real-time listener for updates
-	// });
+	onMount(async () => {
+		await getIqamahTimes(); // Fetch Iqamah times manually on load
+		// 	// listenToIqamahTimes(); // Set up real-time listener for updates
+	});
 </script>
 
 <svelte:head></svelte:head>
