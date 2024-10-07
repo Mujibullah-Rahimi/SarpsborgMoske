@@ -4,7 +4,7 @@
 	import { addMinutesToTime, getTodaysPrayerTimes } from '$lib/helpers/prayertimeFunctions';
 	import { prayerTimesStore } from '$lib/stores/prayertimeStore';
 	import { fixedIqamahStore, type IqamahTimes } from '$lib/stores/iqamahStore';
-	import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
+	// import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
 
 	let iqamahTimes: IqamahTimes;
 	$: iqamahTimes = $fixedIqamahStore;
