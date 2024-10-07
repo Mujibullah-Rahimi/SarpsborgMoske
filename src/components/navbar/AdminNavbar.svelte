@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { logoutUser } from '../../routes/(admin)/login/auth';
+	import { logoutUser } from '../../routes/login/auth';
 	import ButtonStandard from '../ButtonStandard.svelte';
 	import Logo from '../Logo.svelte';
 	import MediaQuery from '../MediaQuery.svelte';

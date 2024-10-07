@@ -3,7 +3,6 @@
 import { derived } from 'svelte/store';
 import { goto } from '$app/navigation';
 import { fbGetUserDoc} from '$lib/firebase/firebaseFunctions';
-import { createToast } from '../../../components/Toast/toastStore';
 import { authStore } from '$lib/stores/authStore';
 import {
 	browserSessionPersistence,
@@ -14,6 +13,7 @@ import {
 	setPersistence
 } from 'firebase/auth';
 import { getAuthInstance } from '$lib/firebase/firebase.client';
+import { createToast } from '$lib/stores/toastStore';
 
 const auth = getAuthInstance();
 

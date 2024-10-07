@@ -7,8 +7,8 @@
 	import { goto } from '$app/navigation';
 	import { fixedIqamahStore } from '$lib/stores/iqamahStore';
 	import type { Handle } from '@sveltejs/kit';
-	import AdminNavbar from '../../../../components/navbar/AdminNavbar.svelte';
-	import { createToast } from '../../../../components/Toast/toastStore';
+	import AdminNavbar from '../../../components/navbar/AdminNavbar.svelte';
+	import { createToast } from '$lib/stores/toastStore';
 
 	let fsUser = null;
 

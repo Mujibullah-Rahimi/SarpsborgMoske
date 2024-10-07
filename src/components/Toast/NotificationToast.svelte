@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { toastStore } from '../Toast/toastStore';
+	import { toastStore } from '../../lib/stores/toastStore';
 </script>
 
 <svelte:head>

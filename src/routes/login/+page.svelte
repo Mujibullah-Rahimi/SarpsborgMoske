@@ -155,10 +155,4 @@
 		cursor: not-allowed;
 	}
 
-	/* Loading state */
-	.loading-message {
-		margin-top: 1rem;
-		font-size: 1rem;
-		color: #000;
-	}
 </style>
