@@ -6,6 +6,7 @@
 	import { authStore } from '$lib/stores/authStore';
 	import { loginUser } from './auth';
 	import MediaQuery from '../../components/MediaQuery.svelte';
+	import Logo from '../../components/Logo.svelte';
 
 	let email = '';
 	let password = '';
@@ -43,6 +44,10 @@
 <MediaQuery query="(min-width: 936px)" let:matches>
 	{#if matches}
 		<div class="login-container">
+			<div class="logo">
+				<Logo width="64" />
+				<p>Sarpsborg<br /> Moske</p>
+			</div>
 			<div class="login-box">
 				<div class="header">
 					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
@@ -86,6 +91,10 @@
 <MediaQuery query="(max-width: 935px)" let:matches>
 	{#if matches}
 		<div class="mobile-login-container">
+			<div class="logo">
+				<Logo width="64" />
+				<p>Sarpsborg<br /> Moske</p>
+			</div>
 			<div class="login-box">
 				<div class="header">
 					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
@@ -137,7 +146,7 @@
 		height: 100vh;
 		background-color: #d0fae2; /* Green secondary */
 	}
-	.mobile-login-container{
+	.mobile-login-container {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -145,6 +154,19 @@
 		position: relative;
 		min-height: 100dvh;
 		background-color: #d0fae2;
+	}
+	.logo {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 50px;
+		position: absolute;
+		top: 20%;
+		gap: 20px;
+		line-height: 35px;
+	}
+	.logo p {
+		font-size: 2em;
 	}
 
 	/* Login Box */
@@ -178,6 +200,7 @@
 	h1 {
 		text-align: center;
 		flex: 1;
+		font-weight: 300;
 	}
 
 	/* Error message */
