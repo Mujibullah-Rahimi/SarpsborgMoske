@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { derived } from 'svelte/store';
-import { mccUser } from '../../components/mccUser';
 import { goto } from '$app/navigation';
-import { fbGetUserDoc, fbAddToUsers } from '$lib/firebase/firebaseFunctions';
+import { fbGetUserDoc} from '$lib/firebase/firebaseFunctions';
 import { createToast } from '../../components/Toast/toastStore';
 import { authStore } from '$lib/stores/authStore';
 import {
@@ -20,16 +19,15 @@ const auth = getAuthInstance();
 
 export const authHandlers = {
 	login: async (email: string, password: string) => {
-		return await setPersistence(auth, browserSessionPersistence).then(() => {
-			return signInWithEmailAndPassword(auth, email, password)
-				.then((userCredential) => {
-					createToast('success', 'Innlogging vellykket');
-					return userCredential; // Return the UserCredential object
-				})
-				.catch((error) => {
-					createToast('error', 'Ugyldig epost eller passord');
-					throw error; // Throw the error to be caught in loginUser
-				});
+		return await setPersistence(auth, browserSessionPersistence).then(async () => {
+			try {
+				const userCredential = await signInWithEmailAndPassword(auth, email, password);
+				createToast('success', 'Innlogging vellykket');
+				return userCredential;
+			} catch (error) {
+				createToast('error', 'Ugyldig epost eller passord');
+				throw error; // Throw the error to be caught in loginUser
+			}
 		});
 	},
 	logout: async () => {

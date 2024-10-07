@@ -13,14 +13,14 @@
 	let unsubscribe: Unsubscriber;
 
 	onMount(() => {
-		unsubscribe = authStore.subscribe(($authStore) => {
-			if ($authStore.isLoggedIn && $authStore.currentUser) {
-				// Redirect to the dashboard with the user ID if already logged in
-				goto('/dashboard/' + $authStore.currentUser.uid);
-			}
-		});
+		// unsubscribe = authStore.subscribe(($authStore) => {
+		// 	if ($authStore.isLoggedIn && $authStore.currentUser) {
+		// 		// Redirect to the dashboard with the user ID if already logged in
+		// 		goto('/dashboard/' + $authStore.currentUser.uid);
+		// 	}
+		// });
 
-		return () => unsubscribe(); // Clean up the subscription
+		// return () => unsubscribe(); // Clean up the subscription
 	});
 
 	async function handleLogin() {
