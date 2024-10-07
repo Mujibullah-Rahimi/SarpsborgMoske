@@ -42,7 +42,10 @@
 	});
 </script>
 
-<svelte:head></svelte:head>
+<svelte:head>
+	<title>Sarpsborg Moske</title>
+	<meta charset="UTF-8" />
+</svelte:head>
 <Navbar />
 <Mobilenavbar />
 <MediaQuery query="(min-width: 936px)" let:matches>

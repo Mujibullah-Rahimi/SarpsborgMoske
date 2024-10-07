@@ -34,6 +34,11 @@
 
 </script>
 
+<svelte:head>
+	<title>Sarpsborg Moske | Innlogging</title>
+	<meta charset="UTF-8" />
+</svelte:head>
+
 <div class="login-container">
 	<div class="login-box">
 		<div class="header">
@@ -50,7 +55,7 @@
 			<p class="error">{errorMessage}</p>
 		{/if}
 
-		<form on:submit|preventDefault={handleLogin}>
+		<form method="POST" on:submit|preventDefault={handleLogin}>
 			<input type="email" bind:value={email} placeholder="Epost" required autocomplete="email" />
 			<input
 				type="password"
