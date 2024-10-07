@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Unsubscriber } from 'svelte/store';
 	import { onMount } from 'svelte';
-	import { authStore, loginUser } from './auth';
 	import { goto } from '$app/navigation';
 	import LeftMcc from '$lib/icons/left-mcc.svelte';
 
