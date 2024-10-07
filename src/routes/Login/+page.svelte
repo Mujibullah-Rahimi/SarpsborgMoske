@@ -29,8 +29,7 @@
 		<div class="header">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<div class="home-btn tooltip" on:click={goHome}>
-				<span class="tooltiptext"><p>Tilbake til nettsiden</p></span>
+			<div class="home-btn" on:click={goHome}>
 				<LeftMcc controlsWidth="20" />
 			</div>
 			<h1>Logg inn</h1>
@@ -50,100 +49,92 @@
 	</div>
 </div>
 
-<style lang="scss">
+<style>
+	/* Login Container */
 	.login-container {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		height: 100vh;
-		background-color: var(--green-secondary);
+		background-color: #d0fae2; /* Green secondary */
+	}
 
-		.login-box {
-			background-color: var(--white);
-			padding: 2rem;
-			border-radius: 15px;
-			box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.2);
-			max-width: 400px;
-			width: 100%;
-			text-align: center;
+	/* Login Box */
+	.login-box {
+		background-color: #fefefd; /* White */
+		padding: 2rem;
+		border-radius: 15px;
+		box-shadow: 5px 5px 12px 0 rgba(0, 0, 0, 0.2);
+		max-width: 400px;
+		width: 100%;
+		text-align: center;
+	}
 
-			.header {
-				display: flex;
-				margin-bottom: 20px;
+	/* Header */
+	.header {
+		display: flex;
+		margin-bottom: 20px;
+	}
 
-				.home-btn {
-					cursor: pointer;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					position: relative; // Ensures tooltip is positioned relative to this element
+	.home-btn {
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		transition: 0.2s ease-in-out;
+	}
 
-					&:hover .tooltiptext {
-						visibility: visible;
-						opacity: 1;
-						transform: translateX(5px) translateY(-10px); // Shift right and up
-					}
-				}
+	.home-btn:hover {
+		transform: translateX(-3px); /* Simple hover effect */
+	}
 
-				h1 {
-					text-align: center;
-					flex: 1;
-				}
-			}
+	h1 {
+		text-align: center;
+		flex: 1;
+	}
 
-			.error {
-				color: red;
-				margin-bottom: 1rem;
-			}
+	/* Error message */
+	.error {
+		color: red;
+		margin-bottom: 1rem;
+	}
 
-			form {
-				input {
-					width: 100%;
-					padding: 0.8rem;
-					margin-bottom: 1.5rem;
-					border-radius: 8px;
-					border: 1px solid var(--green-primary);
-				}
+	/* Form */
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5rem;
+	}
 
-				button {
-					width: 100%;
-					padding: 0.8rem;
-					background-color: var(--green-primary);
-					color: var(--white);
-					border: none;
-					border-radius: 8px;
-					cursor: pointer;
-					&:disabled {
-						background-color: var(--green-secondary);
-						cursor: not-allowed;
-					}
-				}
-			}
+	/* Inputs */
+	input {
+		width: 100%;
+		padding: 0.8rem;
+		border-radius: 8px;
+		border: 1px solid #1da599; /* Green primary */
+	}
 
-			.tooltip {
-				position: relative;
-				display: inline-block;
+	/* Button */
+	button {
+		width: 100%;
+		padding: 0.8rem;
+		background-color: #1da599; /* Green primary */
+		color: white;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+	}
 
-				.tooltiptext {
-					visibility: hidden;
-					width: fit-content;
-					background-color: var(--green-primary);
-					color: #fff;
-					text-align: center;
-					padding: 5px;
-					border-radius: 6px;
-					position: absolute;
-					left: 50%;
-					top: -40px;
-					transform: translateX(-25%);
-					opacity: 0;
-					transition:
-						opacity 0.2s ease-in-out,
-						transform 0.2s ease-in-out;
-					z-index: 1;
-				}
-			}
-		}
+	button:disabled {
+		background-color: #d0fae2; /* Green secondary */
+		cursor: not-allowed;
+	}
+
+	/* Loading state */
+	.loading-message {
+		margin-top: 1rem;
+		font-size: 1rem;
+		color: #000;
 	}
 </style>
