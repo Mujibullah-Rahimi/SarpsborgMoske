@@ -36,10 +36,10 @@
 		openSupportToggle = true;
 	}
 
-	onMount(async () => {
-		await getIqamahTimes(); // Fetch Iqamah times manually on load
-		// listenToIqamahTimes(); // Set up real-time listener for updates
-	});
+	// onMount(async () => {
+	// 	await getIqamahTimes(); // Fetch Iqamah times manually on load
+	// 	// listenToIqamahTimes(); // Set up real-time listener for updates
+	// });
 </script>
 
 <svelte:head></svelte:head>
