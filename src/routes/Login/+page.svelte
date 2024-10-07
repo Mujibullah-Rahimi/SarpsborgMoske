@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { Unsubscriber } from 'svelte/store';
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import LeftMcc from '$lib/icons/left-mcc.svelte';
 
@@ -8,30 +6,9 @@
 	let password = '';
 	let errorMessage = '';
 	let isLoading = false;
-
-	let unsubscribe: Unsubscriber;
-
-	onMount(() => {
-		// unsubscribe = authStore.subscribe(($authStore) => {
-		// 	if ($authStore.isLoggedIn && $authStore.currentUser) {
-		// 		// Redirect to the dashboard with the user ID if already logged in
-		// 		goto('/dashboard/' + $authStore.currentUser.uid);
-		// 	}
-		// });
-
-		// return () => unsubscribe(); // Clean up the subscription
-	});
-
-	async function handleLogin() {
-		// isLoading = true;
-		// errorMessage = '';
-		// // await loginUser(email, password);
-		// setTimeout(() => {
-		// 	isLoading = false;
-		// }, 3000);
-        console.log("HI");
+    function goback(){
+        goto("/");
     }
-
 </script>
 
 <svelte:head>
@@ -43,7 +20,7 @@
 	<div class="login-box">
 		<div class="header">
 			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-			<div class="home-btn tooltip" on:click={()=>{goto('/')}}>
+			<div class="home-btn tooltip" on:click={goback}>
 				<span class="tooltiptext"><p>Tilbake til nettsiden</p></span>
 				<LeftMcc controlsWidth="20" />
 			</div>
