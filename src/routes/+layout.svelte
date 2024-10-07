@@ -4,6 +4,9 @@
 	// import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import NotificationToast from '../components/Toast/NotificationToast.svelte';
 	import { onMount } from 'svelte';
+	import { getAuthInstance } from '$lib/firebase/firebase.client';
+	import { authStore } from '$lib/stores/authStore';
+	import { onAuthStateChanged } from 'firebase/auth';
 	// import { authStore } from './(admin)/login/auth';
 
 	// injectSpeedInsights();
@@ -34,6 +37,26 @@
 	// 		}
 	// 	});
 	// });
+	onMount(() => {
+		// Lazily get the auth instance
+		const auth = getAuthInstance();
+
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				authStore.update((curr) => ({
+					...curr,
+					isLoggedIn: true,
+					currentUser: user
+				}));
+			} else {
+				authStore.update((curr) => ({
+					...curr,
+					isLoggedIn: false,
+					currentUser: null
+				}));
+			}
+		});
+	});
 </script>
 
 <svelte:head>
