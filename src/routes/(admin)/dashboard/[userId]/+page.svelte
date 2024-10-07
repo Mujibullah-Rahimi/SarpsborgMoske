@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { authStore } from '../Login/auth';
+	import { authStore } from '../../Login/auth';
 	import { goto } from '$app/navigation';
 	import { fbGetUserDoc, updateIqamahTimes } from '$lib/firebase/firebaseFunctions';
 	import { fixedIqamahStore } from '$lib/stores/iqamahStore';
 	import type { Handle } from '@sveltejs/kit';
-	import { createToast } from '../../../components/Toast/toastStore';
-	import AdminNavbar from '../../../components/navbar/AdminNavbar.svelte';
+	import { createToast } from '../../../../components/Toast/toastStore';
+	import AdminNavbar from '../../../../components/navbar/AdminNavbar.svelte';
 
 	let fsUser = null;
 
