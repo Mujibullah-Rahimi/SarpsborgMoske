@@ -80,7 +80,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		min-height: 100vh;
+		flex-grow: 1;
 		background-color: #d0fae2; /* Green secondary */
 	}
 
