@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { loadCsvData } from '$lib/helpers/csvfunctions';
 	import { addMinutesToTime, getTodaysPrayerTimes } from '$lib/helpers/prayertimeFunctions';
+	import { type IqamahTimes, fixedIqamahStore } from '$lib/stores/iqamahStore';
 	import { prayerTimesStore } from '$lib/stores/prayertimeStore';
 	import { onMount } from 'svelte';
-	import { quintOut } from 'svelte/easing';
-	import { fade, fly, slide } from 'svelte/transition';
 
-	const slideTransition = { delay: 250, duration: 300, easing: quintOut, axis: 'x' as 'x' };
-	const flyTransition = {delay: 250,duration: 300,x: 800,y: 0,opacity: 0.5,easing: quintOut};
+	let iqamahTimes: IqamahTimes;
+	$: iqamahTimes = $fixedIqamahStore;
 
 	// Load the CSV file and update the prayer times on component mount
 	onMount(async () => {
@@ -30,11 +29,17 @@
 		<div class="fajr salah box">
 			<div class="left"><h2 class="title">FAJR</h2></div>
 			<div class="right">
-				<div class="fajr-adhan" >
+				<div class="fajr-adhan">
 					<h2 class="time">{$prayerTimesStore.fajr}</h2>
 				</div>
-				<div class="fajr-iqamah" >
-					<h2 class="time">{addMinutesToTime($prayerTimesStore.fajr, 15)}</h2>
+				<div class="fajr-iqamah">
+					{#if iqamahTimes.fajr.type === 'relative' && typeof iqamahTimes.fajr.iqamah === 'number'}
+						<h2 class="time">
+							{addMinutesToTime($prayerTimesStore.fajr, iqamahTimes.fajr.iqamah)}
+						</h2>
+					{:else}
+						<h2 class="time">{iqamahTimes.fajr.iqamah}</h2>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -43,11 +48,17 @@
 		<div class="dhuhr salah box">
 			<div class="left"><h2 class="title">DHUHR</h2></div>
 			<div class="right">
-				<div class="dhuhr-adhan" >
+				<div class="dhuhr-adhan">
 					<h2 class="time">{$prayerTimesStore.dhuhr}</h2>
 				</div>
-				<div class="dhuhr-iqamah" >
-					<h2 class="time">14:00</h2>
+				<div class="dhuhr-iqamah">
+					{#if iqamahTimes.dhuhr.type === 'relative' && typeof iqamahTimes.dhuhr.iqamah === 'number'}
+						<h2 class="time">
+							{addMinutesToTime($prayerTimesStore.dhuhr, iqamahTimes.dhuhr.iqamah)}
+						</h2>
+					{:else}
+						<h2 class="time">{iqamahTimes.dhuhr.iqamah}</h2>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -56,11 +67,15 @@
 		<div class="asr salah box">
 			<div class="left"><h2 class="title">ASR</h2></div>
 			<div class="right">
-				<div class="asr-adhan" >
+				<div class="asr-adhan">
 					<h2 class="time">{$prayerTimesStore.asr}</h2>
 				</div>
-				<div class="asr-iqamah" >
-					<h2 class="time">16:30</h2>
+				<div class="asr-iqamah">
+					{#if iqamahTimes.asr.type === 'relative' && typeof iqamahTimes.asr.iqamah === 'number'}
+						<h2 class="time">{addMinutesToTime($prayerTimesStore.asr, iqamahTimes.asr.iqamah)}</h2>
+					{:else}
+						<h2 class="time">{iqamahTimes.asr.iqamah}</h2>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -69,11 +84,17 @@
 		<div class="maghrib salah box">
 			<div class="left"><h2 class="title">MAGHRIB</h2></div>
 			<div class="right">
-				<div class="maghrib-adhan" >
+				<div class="maghrib-adhan">
 					<h2 class="time">{$prayerTimesStore.maghrib}</h2>
 				</div>
-				<div class="maghrib-iqamah" >
-					<h2 class="time">{$prayerTimesStore.maghrib}</h2>
+				<div class="maghrib-iqamah">
+					{#if iqamahTimes.maghrib.type === 'relative' && typeof iqamahTimes.maghrib.iqamah === 'number'}
+						<h2 class="time">
+							{addMinutesToTime($prayerTimesStore.maghrib, iqamahTimes.maghrib.iqamah)}
+						</h2>
+					{:else}
+						<h2 class="time">{iqamahTimes.maghrib.iqamah}</h2>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -82,11 +103,17 @@
 		<div class="isha salah box">
 			<div class="left"><h2 class="title">ISHA</h2></div>
 			<div class="right">
-				<div class="isha-adhan" >
+				<div class="isha-adhan">
 					<h2 class="time">{$prayerTimesStore.isha}</h2>
 				</div>
-				<div class="isha-iqamah" >
-					<h2 class="time">{addMinutesToTime($prayerTimesStore.isha, 10)}</h2>
+				<div class="isha-iqamah">
+					{#if iqamahTimes.isha.type === 'relative' && typeof iqamahTimes.isha.iqamah === 'number'}
+						<h2 class="time">
+							{addMinutesToTime($prayerTimesStore.isha, iqamahTimes.isha.iqamah)}
+						</h2>
+					{:else}
+						<h2 class="time">{iqamahTimes.isha.iqamah}</h2>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -99,7 +126,9 @@
 					<h2 class="empty">14:30</h2>
 				</div>
 				<div class="khutba">
-					<h2 class="time">14:00</h2>
+					<h2 class="time">
+						{iqamahTimes.jumuah.iqamah}
+					</h2>
 				</div>
 			</div>
 		</div>
@@ -151,7 +180,7 @@
 				}
 			}
 		}
-		
+
 		.jumuah {
 			background-color: var(--green-secondary);
 			border-radius: 0 0 10px 10px;

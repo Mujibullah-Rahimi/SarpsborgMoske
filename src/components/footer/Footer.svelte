@@ -89,7 +89,7 @@
 				<div class="outside-right">
 					<p class="privacypolicy">Personvern</p>
 					<p class="madeby">
-						Made by <span
+						Levert av <span
 							><a href="https://www.rahimisolutions.com/" target="_blank" rel="noopener noreferrer"
 								>Rahimi Solutions</a
 							></span

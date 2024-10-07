@@ -80,13 +80,13 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		height: 100vh;
+		min-height: 100vh;
 		background-color: #d0fae2; /* Green secondary */
 	}
 
 	/* Login Box */
 	.login-box {
-		background-color: #fefefd; /* White */
+		background-color: var(--white); /* White */
 		padding: 2rem;
 		border-radius: 15px;
 		box-shadow: 5px 5px 12px 0 rgba(0, 0, 0, 0.2);

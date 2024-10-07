@@ -82,7 +82,7 @@
 						© 2024 Muslim Culture Center. All rights reserved. Org. nr. 980325652
 					</p>
 					<p class="madeby">
-						Made by <span
+						Levert av <span
 							><a href="https://www.rahimisolutions.com/" target="_blank" rel="noopener noreferrer"
 								>Rahimi Solutions</a
 							></span
