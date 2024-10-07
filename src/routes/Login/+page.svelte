@@ -4,11 +4,9 @@
 
 	let email = '';
 	let password = '';
-	let errorMessage = '';
-	let isLoading = false;
-    function goback(){
-        goto("/");
-    }
+	function goback() {
+		goto('/');
+	}
 </script>
 
 <svelte:head>
@@ -27,11 +25,8 @@
 			<h1>Logg inn</h1>
 		</div>
 
-		{#if errorMessage}
-			<p class="error">{errorMessage}</p>
-		{/if}
-        <!-- on:submit|preventDefault={handleLogin} -->
-		<form method="POST" >
+		<!-- on:submit|preventDefault={handleLogin} -->
+		<form method="POST">
 			<input type="email" bind:value={email} placeholder="Epost" required autocomplete="email" />
 			<input
 				type="password"
@@ -40,12 +35,8 @@
 				required
 				autocomplete="current-password"
 			/>
-			<button type="submit" disabled={isLoading}><p>Logg inn</p></button>
+			<button type="submit"><p>Logg inn</p></button>
 		</form>
-
-		{#if isLoading}
-			<p>Logger inn...</p>
-		{/if}
 	</div>
 </div>
 
@@ -84,8 +75,8 @@
 				justify-content: center;
 				position: relative; // Ensures tooltip is positioned relative to this element
 				transition: 0.3s ease-in-out;
-				&:hover{
-					transform:translateX(-3px);
+				&:hover {
+					transform: translateX(-3px);
 				}
 				&:hover .tooltiptext {
 					visibility: visible;
