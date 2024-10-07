@@ -1,39 +1,39 @@
 <script>
 	import { inject } from '@vercel/analytics';
 	import { dev } from '$app/environment';
-	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+	// import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import NotificationToast from '../components/Toast/NotificationToast.svelte';
 	import { onMount } from 'svelte';
-	import { authStore } from './(admin)/login/auth';
+	// import { authStore } from './(admin)/login/auth';
 
-	injectSpeedInsights();
+	// injectSpeedInsights();
 
 	inject({ mode: dev ? 'development' : 'production' });
 
-	// Dynamically import Firebase Auth and update authStore
-	onMount(async () => {
-		const { getAuthInstance } = await import('$lib/firebase/firebase.client'); // Lazy load
-		const { onAuthStateChanged } = await import('firebase/auth'); // Lazy load Firebase auth
+	// // Dynamically import Firebase Auth and update authStore
+	// onMount(async () => {
+	// 	const { getAuthInstance } = await import('$lib/firebase/firebase.client'); // Lazy load
+	// 	const { onAuthStateChanged } = await import('firebase/auth'); // Lazy load Firebase auth
 
-		// Lazily get the auth instance
-		const auth = getAuthInstance();
+	// 	// Lazily get the auth instance
+	// 	const auth = getAuthInstance();
 
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				authStore.update((curr) => ({
-					...curr,
-					isLoggedIn: true,
-					currentUser: user
-				}));
-			} else {
-				authStore.update((curr) => ({
-					...curr,
-					isLoggedIn: false,
-					currentUser: null
-				}));
-			}
-		});
-	});
+	// 	onAuthStateChanged(auth, (user) => {
+	// 		if (user) {
+	// 			authStore.update((curr) => ({
+	// 				...curr,
+	// 				isLoggedIn: true,
+	// 				currentUser: user
+	// 			}));
+	// 		} else {
+	// 			authStore.update((curr) => ({
+	// 				...curr,
+	// 				isLoggedIn: false,
+	// 				currentUser: null
+	// 			}));
+	// 		}
+	// 	});
+	// });
 </script>
 
 <svelte:head>
