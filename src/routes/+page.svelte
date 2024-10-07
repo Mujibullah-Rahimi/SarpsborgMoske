@@ -23,8 +23,8 @@
 	import Mobilenavbar from '../components/navbar/Mobilenavbar.svelte';
 	import Navbar from '../components/navbar/Navbar.svelte';
 	import { goto } from '$app/navigation';
-	import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
-	import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
+	// import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
+	// import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
 	import { onMount } from 'svelte';
 
 	let openJointoggle = false;
