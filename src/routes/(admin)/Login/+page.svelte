@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import LeftMcc from '$lib/icons/left-mcc.svelte';
-	import { loginUser } from '../Login/auth';
+	import { onMount } from 'svelte';
+	import type { Unsubscriber } from 'svelte/store';
+	import { authStore, loginUser } from '../Login/auth';
 
 	let email = '';
 	let password = '';
@@ -10,12 +12,27 @@
 		goto('/');
 	}
 
+	let errorMessage = '';
+	let isLoading = false;
+
+	let unsubscribe: Unsubscriber;
+
+	onMount(() => {
+		unsubscribe = authStore.subscribe(($authStore) => {
+			if ($authStore.isLoggedIn && $authStore.currentUser) {
+				// Redirect to the dashboard with the user ID if already logged in
+				goto('/dashboard/' + $authStore.currentUser.uid);
+			}
+		});
+		return () => unsubscribe(); // Clean up the subscription
+	});
+
 	async function handleLogin() {
-		// isLoading = true;
-		// errorMessage = '';
+		isLoading = true;
+		errorMessage = '';
 		await loginUser(email, password);
 		setTimeout(() => {
-			// isLoading = false;
+			isLoading = false;
 		}, 3000);
 	}
 </script>
@@ -35,7 +52,11 @@
 			<h1>Logg inn</h1>
 		</div>
 
-		<form on:submit={handleLogin}>
+		{#if errorMessage}
+			<p class="error">{errorMessage}</p>
+		{/if}
+
+		<form on:submit|preventDefault={handleLogin}>
 			<input type="email" bind:value={email} placeholder="Epost" required autocomplete="email" />
 			<input
 				type="password"
@@ -44,8 +65,12 @@
 				required
 				autocomplete="current-password"
 			/>
-			<button type="submit"><p>Logg inn</p></button>
+			<button type="submit" disabled={isLoading}><p>Logg inn</p></button>
 		</form>
+
+		{#if isLoading}
+			<p>Logger inn...</p>
+		{/if}
 	</div>
 </div>
 
