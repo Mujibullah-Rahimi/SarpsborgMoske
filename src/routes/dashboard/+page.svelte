@@ -6,6 +6,7 @@
 	import { authStore } from '$lib/stores/authStore';
 	import { goto } from '$app/navigation';
 	import AdminNavbar from '../../components/navbar/AdminNavbar.svelte';
+	import DownloadMcc from '$lib/icons/download-mcc.svelte';
 	
 
 	let fsUser = null;
@@ -50,11 +51,18 @@
 	<div class="sidebar">
 		<h2>Nyttige dokumenter</h2>
 		<div class="download-card">
-			<a href="/assets/PrayertimeFile.pdf" download><p>Last ned Bønnetid fil</p></a>
+			<DownloadMcc width="20"/>
+			<a href="/assets/bonnetider2024.csv" download><p>Last ned Bønnetabell</p></a>
 		</div>
 
 		<div class="download-card">
+			<DownloadMcc width="20"/>
 			<a href="/assets/Innmeldingsskjema.pdf" download><p>Last ned Innmeldingsskjema</p></a>
+		</div>
+
+		<div class="download-card">
+			<DownloadMcc width="20"/>
+			<a href="/assets/Utmeldingsblankett.pdf" download><p>Last ned Utmeldingsblankett</p></a>
 		</div>
 	</div>
 </div>
@@ -117,6 +125,8 @@
 		text-align: center;
 		box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		display: flex;
+		gap: 10px;
 	}
 
 	.download-card:hover {

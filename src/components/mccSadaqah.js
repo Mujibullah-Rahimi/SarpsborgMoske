@@ -6,7 +6,7 @@ export class mccSadaqah {
      * @param {string} vipps
      * @param {string} kontonummer
      */
-    constructor(tittel, beskrivelse, link, kontonummer, vipps) {
+    constructor(tittel, beskrivelse, link,vipps, kontonummer ) {
         this.tittel = tittel;
         this.beskrivelse = beskrivelse;
         this.link = link;
@@ -20,7 +20,7 @@ export class mccSadaqah {
 }
 
 export const sadaqahConverter = {
-    toFirestore: (/** @type {{  tittel: any; beskrivelse: any; link: any; vipps: any;kontonummer: any; }} */ user) => {
+    toFirestore: (/** @type {{  tittel: any; beskrivelse: any; link: any; vipps: any; kontonummer: any; }} */ user) => {
         return {
             tittel: user.tittel,
             beskrivelse: user.beskrivelse,
