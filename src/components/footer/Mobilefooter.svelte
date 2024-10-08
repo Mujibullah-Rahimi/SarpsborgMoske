@@ -32,18 +32,18 @@
 										>
 									</p>
 								</li>
-								<li>
+								<!-- <li>
 									<p>
 										<InstagramMcc width="16" />
 										<a
-											href="https://www.instagram.com/rahimisolutions/"
+											href="https://www.instagram.com/sarpsborgmoske/"
 											target="_blank"
 											rel="noopener noreferrer"
 										>
 											Instagram
 										</a>
 									</p>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</div>
