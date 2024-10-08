@@ -30,7 +30,7 @@
 			// console.log('Auth Store Changed:', $authStore); // Debugging step
 			if ($authStore.isLoggedIn && $authStore.currentUser) {
 				// console.log('Redirecting to dashboard');
-				goto('/dashboard/' + $authStore.currentUser.uid);
+				goto('/dashboard/');
 			}
 		});
 		return () => unsubscribe();

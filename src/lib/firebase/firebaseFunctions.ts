@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, QuerySnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { getDbInstance } from "./firebase.client"; // Firestore instance import
-import type { mccUser } from "../../components/mccUser";
+import { userConverter, type mccUser } from "../../components/mccUser";
 import { fixedIqamahStore, type IqamahTimes } from "$lib/stores/iqamahStore";
+import { mccSadaqah, sadaqahConverter } from "../../components/mccSadaqah";
+import { createToast } from "$lib/stores/toastStore";
 
 export async function fbGetUserDoc(userUid: string) {
     const db = getDbInstance(); // Firestore instance
@@ -58,5 +60,55 @@ export async function getIqamahTimes() {
         }
     } catch (error) {
         console.error('Error fetching Iqamah times:', error);
+    }
+}
+
+export async function getAllSadaqah(): Promise<mccSadaqah[]> {
+    try {
+        const db = getDbInstance(); 
+        const sadaqahCollectionRef = collection(db, 'sadaqah').withConverter(sadaqahConverter);
+        
+        const querySnapshot: QuerySnapshot<mccSadaqah> = await getDocs(sadaqahCollectionRef);
+        const sadaqahList: mccSadaqah[] = [];
+        
+        querySnapshot.forEach((doc) => {
+            sadaqahList.push(doc.data());
+        });
+        
+        return sadaqahList; // Returns an array of mccSadaqah objects
+    } catch (error) {
+        console.error("Error fetching sadaqah documents: ", error);
+        throw new Error("Could not retrieve sadaqah");
+    }
+}
+
+export async function getSpecificSadaqah(documentName: string) {
+    try {
+        const db = getDbInstance(); 
+        const sadaqahDocRef = doc(db, 'sadaqah', documentName).withConverter(sadaqahConverter);
+        const sadaqahDoc = await getDoc(sadaqahDocRef);
+        
+        if (sadaqahDoc.exists()) {
+            return sadaqahDoc.data(); // Returns a single mccSadaqah object
+        } else {
+            throw new Error("No such sadaqah document!");
+        }
+    } catch (error) {
+        console.error("Error fetching specific sadaqah: ", error);
+        throw new Error("Could not retrieve the sadaqah document");
+    }
+}
+
+export async function addNewSadaqah(sadaqahData: mccSadaqah): Promise<void> {
+    try {
+        const db = getDbInstance(); 
+        const sadaqahCollectionRef = collection(db, 'sadaqah').withConverter(sadaqahConverter);
+
+        await addDoc(sadaqahCollectionRef, sadaqahData);
+
+        createToast("success", "Ny sadaqah ble lagt til!")
+    } catch (error) {
+        createToast("error", "Noe gikk galt")
+        throw new Error("Could not add new sadaqah");
     }
 }

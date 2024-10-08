@@ -1,7 +1,7 @@
 <script>
 	import FacebookMcc from '$lib/icons/facebook-mcc.svelte';
 	import InstagramMcc from '$lib/icons/instagram-mcc.svelte';
-	import ButtonSecondary from '../ButtonSecondary.svelte';
+	import ButtonSecondary from '../Button/ButtonSecondary.svelte';
 	import Logo from '../Logo.svelte';
 	import MediaQuery from '../MediaQuery.svelte';
 </script>
@@ -19,25 +19,17 @@
 					<div class="small-logo">
 						<Logo />
 					</div>
-
-					<div class="newsletter">
-						<div class="cta-text">
-							<p>
-								Abonner på vårt nyhetsbrev, og hold deg oppdatert på <br /> bønnetider og andre nyheter!
-							</p>
-						</div>
-						<form action="submit">
-							<input type="text" class="form-input" name="email" placeholder="Epost" required />
-
-							<ButtonSecondary text="Abonner" />
-						</form>
-						<div class="disclaimer">
-							<p>Ved å abonnere godtår du våre vilker</p>
-						</div>
-					</div>
 				</div>
 
 				<div class="right">
+					<div class="sitemap">
+						<h3>Støtt MCC</h3>
+						<ul>
+							<li><p><a href="/#top">Bli medlem</a></p></li>
+							<li><p>Vipps #762639</p></li>
+							<li><p>DNB 0530.422.6031</p></li>
+						</ul>
+					</div>
 					<div class="sitemap">
 						<h3>Sitemap</h3>
 						<ul>
@@ -64,18 +56,18 @@
 									>
 								</p>
 							</li>
-							<li>
+							<!-- <li>
 								<p>
 									<InstagramMcc width="24" />
 									<a
-										href="https://www.instagram.com/rahimisolutions/"
+										href="https://www.instagram.com/sarpsborgmoske"
 										target="_blank"
 										rel="noopener noreferrer"
 									>
 										Instagram
 									</a>
 								</p>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>
@@ -128,44 +120,15 @@
 			left: 250px;
 			top: 0;
 		}
-		.left,
-		.right {
-			width: 50%;
-			display: flex;
-		}
 		.left {
+			flex: 0.5;
+			display: flex;
 			flex-direction: column;
-			.newsletter {
-				margin-top: 20px;
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-				justify-content: space-evenly;
-				.form-input {
-					background-color: var(--white);
-					border-radius: 5px;
-					height: 2.5em;
-					width: 30ch;
-					font-size: 1em;
-					box-shadow: 5px 5px 12px 0 rgba(0, 0, 0, 0.2);
-					border: none;
-					position: relative;
-					padding: 0 5px 0 5px;
-					margin-right: 15px;
-				}
-
-				.cta-text {
-					font-size: 1em;
-				}
-				.disclaimer {
-					opacity: 0.8;
-					font-size: 0.8em;
-				}
-			}
 		}
 
 		.right {
 			display: flex;
+			flex: 1;
 			justify-content: space-evenly;
 			.sitemap {
 				h3 {

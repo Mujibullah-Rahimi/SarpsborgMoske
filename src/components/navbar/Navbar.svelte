@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { authStore } from '$lib/stores/authStore';
-	import ButtonPrimary from '../ButtonPrimary.svelte';
-	import ButtonStandard from '../ButtonStandard.svelte';
+	import ButtonPrimary from '../Button/ButtonPrimary.svelte';
+	import ButtonStandard from '../Button/ButtonStandard.svelte';
 	import Logo from '../Logo.svelte';
 	import MediaQuery from '../MediaQuery.svelte';
 	import SupportPopup from '../Popup/SupportPopup.svelte';
@@ -49,7 +49,7 @@
 				<div class="navbar-admin-btn">
 					<ButtonStandard
 						text='Administrer'
-						link={'/dashboard/' + authData.currentUser.id}
+						link={'/dashboard'}
 					/>
 				</div>
 			{:else}

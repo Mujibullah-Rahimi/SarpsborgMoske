@@ -2,7 +2,7 @@
 	import TelephoneMcc from '$lib/icons/telephone-mcc.svelte';
 	import EnvelopeMcc from '$lib/icons/envelope-mcc.svelte';
 	import GeoAltMcc from '$lib/icons/geo-alt-mcc.svelte';
-	import MediaQuery from './MediaQuery.svelte';
+	import MediaQuery from '../MediaQuery.svelte';
 
 	export let channel = '';
 	export let title = 'Title goes here';

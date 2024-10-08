@@ -3,14 +3,14 @@
 	import Quranpic from '$lib/images/quran_300.jpg';
 	import Charitypic from '$lib/images/veldedighet_300.jpg';
 	import Fridaypic from '$lib/images/friday_prayer_300.jpg';
-	import ButtonPrimary from '../components/ButtonPrimary.svelte';
-	import ButtonSecondary from '../components/ButtonSecondary.svelte';
+	import ButtonPrimary from '../components/Button/ButtonPrimary.svelte';
+	import ButtonSecondary from '../components/Button/ButtonSecondary.svelte';
 	import interiorImage from '$lib/images/interior.png';
 	import DownloadMcc from '$lib/icons/download-mcc.svelte';
 	import Prayertable from '../components/prayertable/Prayertable.svelte';
-	import Eventcard from '../components/Eventcard.svelte';
+	import Eventcard from '../components/Card/Eventcard.svelte';
 	import Logo from '../components/Logo.svelte';
-	import Contactcard from '../components/Contactcard.svelte';
+	import Contactcard from '../components/Card/Contactcard.svelte';
 	import MediaQuery from '../components/MediaQuery.svelte';
 	import sarpmoske from '$lib/images/sarpsborgmoske.png';
 	import Mobileprayertable from '../components/prayertable/Mobileprayertable.svelte';
@@ -26,14 +26,20 @@
 	import { getIqamahTimes } from '$lib/firebase/firebaseFunctions';
 	// import { listenToIqamahTimes } from '$lib/firebase/firestoreListeners';
 	import { onMount } from 'svelte';
+	import EventPopup from '../components/Popup/EventPopup.svelte';
 
 	let openJointoggle = false;
 	let openSupportToggle = false;
+	let openSadaqahToggle = false;
+
 	function openJoinPopup() {
 		openJointoggle = true;
 	}
 	function openSupportPopup() {
 		openSupportToggle = true;
+	}
+	function openSadaqahPopup() {
+		openSadaqahToggle = true;
 	}
 
 	onMount(async () => {
@@ -53,6 +59,7 @@
 		<body>
 			<JoinPopup bind:open={openJointoggle} />
 			<SupportPopup bind:open={openSupportToggle} />
+			<EventPopup bind:open={openSadaqahToggle} />
 			<div class="hero-section" id="Hjem">
 				<div class="left">
 					<div class="address">
@@ -152,7 +159,8 @@
 						  Kombinert med ulike aktiviteter"
 							/>
 						</div>
-						<div class="event">
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+						<div class="event" on:click={openSadaqahPopup}>
 							<Eventcard
 								source={Charitypic}
 								altText="Måter du kan gi veldedighet"

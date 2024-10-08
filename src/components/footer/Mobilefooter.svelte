@@ -2,8 +2,8 @@
 	import Logo from '../Logo.svelte';
 	import FacebookMcc from '$lib/icons/facebook-mcc.svelte';
 	import InstagramMcc from '$lib/icons/instagram-mcc.svelte';
-	import ButtonSecondary from '../ButtonSecondary.svelte';
-	import ButtonPrimary from '../ButtonPrimary.svelte';
+	import ButtonSecondary from '../Button/ButtonSecondary.svelte';
+	import ButtonPrimary from '../Button/ButtonPrimary.svelte';
 	import MediaQuery from '../MediaQuery.svelte';
 </script>
 

@@ -5,11 +5,11 @@
 	import BarsMcc from '$lib/icons/bars-mcc.svelte';
 	import XmarkMcc from '$lib/icons/xmark-mcc.svelte';
 	import Logo from '../Logo.svelte';
-	import ButtonPrimary from '../ButtonPrimary.svelte';
+	import ButtonPrimary from '../Button/ButtonPrimary.svelte';
 	import SupportPopup from '../Popup/SupportPopup.svelte';
 	import { authStore } from '$lib/stores/authStore';
 	import { onDestroy } from 'svelte';
-	import ButtonStandard from '../ButtonStandard.svelte';
+	import ButtonStandard from '../Button/ButtonStandard.svelte';
 
 	let open = false;
 	let opentoggle = false;
@@ -86,7 +86,7 @@
 								<a class="navbar-admin-btn">
 									<ButtonStandard
 										text="Administrer"
-										link={'/dashboard/' + authData.currentUser.id}
+										link='/dashboard'
 									/>
 								</a>
 							</p>

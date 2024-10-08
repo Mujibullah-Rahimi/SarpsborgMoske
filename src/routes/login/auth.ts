@@ -71,7 +71,7 @@ export async function loginUser(email: string, password: string) {
 						mccUser: firestoreUser // This is the additional Firestore data
 					}));
 
-					goto(`/dashboard/${user.uid}`);
+					goto(`/dashboard/`);
 				}
 			});
 		}
