@@ -49,7 +49,7 @@
 		}
 
 		if (event.url.pathname === '/login' && user) {
-			return Response.redirect(`/dashboard/${user.uid}`, 302);
+			return Response.redirect(`/dashboard/`, 302);
 		}
 
 		return resolve(event);

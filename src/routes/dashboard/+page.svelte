@@ -45,7 +45,7 @@
 					<p>Oppdater og administrer bønnetider</p>
 				</div>
 
-				<div class="section-card" on:click={() => goto('/dashboard/veldedighet')}>
+				<div class="section-card" on:click={() => goto('/dashboard/veldedigheter')}>
 					<h2>Veldedigheter</h2>
 					<p>Administrer og legg til nye veldedigheter</p>
 				</div>
@@ -84,7 +84,7 @@
 					<p>Oppdater og administrer bønnetider</p>
 				</div>
 
-				<div class="section-mobile-card" on:click={() => goto('/dashboard/veldedighet')}>
+				<div class="section-mobile-card" on:click={() => goto('/dashboard/veldedigheter')}>
 					<h2>Veldedigheter</h2>
 					<p>Administrer og legg til nye veldedigheter</p>
 				</div>
