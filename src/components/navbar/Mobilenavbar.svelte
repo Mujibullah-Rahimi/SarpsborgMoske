@@ -10,6 +10,9 @@
 	import { authStore } from '$lib/stores/authStore';
 	import { onDestroy } from 'svelte';
 	import ButtonStandard from '../Button/ButtonStandard.svelte';
+	import { goto } from '$app/navigation';
+	import { logoutUser } from '../../routes/login/auth';
+	import ConfirmationPopup from '../Popup/ConfirmationPopup.svelte';
 
 	let open = false;
 	let opentoggle = false;
@@ -49,6 +52,21 @@
 	function handleOverlayClick() {
 		open = false;
 	}
+
+	let showPopup = false;
+
+	function handleLogOutClick() {
+		showPopup = true;
+	}
+
+	function handleConfirmLogout() {
+		logoutUser();
+		goto('/login');
+	}
+
+	function handleCancelLogout() {
+		showPopup = false;
+	}
 </script>
 
 <MediaQuery query="(max-width: 935px)" let:matches>
@@ -81,15 +99,13 @@
 						<p><a href="/#Innmelding" on:click={handleMenuChoice}>Innmelding</a></p>
 						<p><a href="/#Kontakt" on:click={handleMenuChoice}>Kontakt</a></p>
 						{#if authData.isLoggedIn && authData.currentUser}
-							<p>
-								<!-- svelte-ignore a11y-missing-attribute -->
-								<a class="navbar-admin-btn">
-									<ButtonStandard
-										text="Administrer"
-										link='/dashboard'
-									/>
-								</a>
-							</p>
+							<p><a class="navbar-admin" href="/dashboard">Administrasjonpanel</a></p>
+							<p><a class="navbar-admin" href="/dashboard/bønnetider">Bønnetider</a></p>
+							<p><a class="navbar-admin" href="/dashboard/veldedigheter">Veldedigheter</a></p>
+							<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+							<div class="navbar-btn" on:click={handleLogOutClick}>
+								<ButtonStandard text="Logg ut" />
+							</div>
 						{:else}
 							<p>
 								<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
@@ -106,6 +122,7 @@
 		{/if}
 	{/if}
 </MediaQuery>
+<ConfirmationPopup open={showPopup} onConfirm={handleConfirmLogout} onCancel={handleCancelLogout} />
 
 <style lang="scss">
 	.mobile-nav {
@@ -177,8 +194,8 @@
 						font-size: 1.2em;
 					}
 				}
-
-				.nav-book-meeting {
+				.navbar-admin {
+					color: var(--green-primary);
 				}
 			}
 		}

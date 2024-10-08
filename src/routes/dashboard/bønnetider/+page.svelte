@@ -9,6 +9,7 @@
 	import type { Handle } from '@sveltejs/kit';
 	import AdminNavbar from '../../../components/navbar/AdminNavbar.svelte';
 	import { createToast } from '$lib/stores/toastStore';
+	import Mobilenavbar from '../../../components/navbar/Mobilenavbar.svelte';
 
 	let fsUser = null;
 
@@ -141,6 +142,7 @@
 </svelte:head>
 
 <AdminNavbar />
+<Mobilenavbar />
 
 <div class="admin-settings">
 	<h1>Administrer Bønnetider</h1>
@@ -198,6 +200,7 @@
 	.admin-settings {
 		max-width: 600px;
 		margin: 20px auto;
+		margin-top: 100px;
 		padding: 20px;
 		background-color: var(--white);
 		border-radius: 10px;

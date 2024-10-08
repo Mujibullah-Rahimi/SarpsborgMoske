@@ -42,25 +42,7 @@
 		</nav>
 	{/if}
 </MediaQuery>
-<MediaQuery query="(max-width: 935px)" let:matches>
-	{#if matches}
-		<nav>
-			<div class="logo">
-				<a href="/"><Logo /></a>
-			</div>
-			<div class="navbar-menu">
-				<ul>
-					<li><p><a href="/dashboard/bønnetider">Bønnetider</a></p></li>
-					<li><p><a href="/dashboard/veldedigheter">Veldedigheter</a></p></li>
-				</ul>
-			</div>
-			<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-			<div class="navbar-btn" on:click={handleLogOutClick}>
-				<ButtonStandard text="Logg ut" />
-			</div>
-		</nav>
-	{/if}
-</MediaQuery>
+
 
 <ConfirmationPopup open={showPopup} onConfirm={handleConfirmLogout} onCancel={handleCancelLogout} />
 

@@ -250,6 +250,7 @@
 		<body>
 			<JoinPopup bind:open={openJointoggle} />
 			<SupportPopup bind:open={openSupportToggle} />
+			<EventPopup bind:open={openSadaqahToggle} />
 			<div class="mobile-container">
 				<div class="mobile-herosection" id="Hjem">
 					<div class="bg-image">
@@ -353,7 +354,9 @@
 							  Kombinert med ulike aktiviteter"
 									/>
 								</div>
-								<div class="event">
+								<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+								<div class="event" on:click={openSadaqahPopup}
+								>
 									<Eventcard
 										source={Charitypic}
 										altText="Måter du kan gi veldedighet"
@@ -361,7 +364,10 @@
 										text="Se ulike måter du kan gi veldedighet på, for å nytte deg i dette liv og neste"
 									/>
 								</div>
-								<div class="event">
+								<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+								<div class="event" on:click={() => {
+									goto('/#Bønnetabell');
+								}}>
 									<Eventcard
 										source={Fridaypic}
 										altText="Fredagsbønn"
