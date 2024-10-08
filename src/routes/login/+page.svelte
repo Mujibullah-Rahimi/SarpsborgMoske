@@ -146,27 +146,31 @@
 		height: 100vh;
 		background-color: #d0fae2; /* Green secondary */
 	}
+
 	.mobile-login-container {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		position: relative;
-		min-height: 100dvh;
+		min-height: 100vh; /* Use vh units for full screen height */
 		background-color: #d0fae2;
+		overflow: hidden; /* Prevent any scrolling */
+		gap: 20px; /* Add spacing between logo and login box */
 	}
+
 	.logo {
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-bottom: 50px;
-		position: absolute;
-		top: 20%;
-		gap: 20px;
+		gap: 10px;
 		line-height: 35px;
+		margin-bottom: 20px; /* Adjust space below the logo */
 	}
+
 	.logo p {
 		font-size: 2em;
+		text-align: center;
 	}
 
 	/* Login Box */

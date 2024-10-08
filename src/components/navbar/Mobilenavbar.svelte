@@ -99,7 +99,7 @@
 						<p><a href="/#Innmelding" on:click={handleMenuChoice}>Innmelding</a></p>
 						<p><a href="/#Kontakt" on:click={handleMenuChoice}>Kontakt</a></p>
 						{#if authData.isLoggedIn && authData.currentUser}
-							<p><a class="navbar-admin" href="/dashboard">Administrasjonpanel</a></p>
+							<p><a class="navbar-admin" href="/dashboard">Dashbord</a></p>
 							<p><a class="navbar-admin" href="/dashboard/bønnetider">Bønnetider</a></p>
 							<p><a class="navbar-admin" href="/dashboard/veldedigheter">Veldedigheter</a></p>
 							<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->

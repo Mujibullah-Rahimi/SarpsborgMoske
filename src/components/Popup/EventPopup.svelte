@@ -142,7 +142,10 @@
 								<p>Tilbake</p>
 							</div>
 							<h1>{selectedSadaqah.tittel}</h1>
-							<p><strong>Beskrivelse:</strong> {selectedSadaqah.beskrivelse}</p>
+							<p class="scrollable-description">
+								<strong>Beskrivelse:</strong>
+								{selectedSadaqah.beskrivelse}
+							</p>
 							<p><strong>Vipps:</strong> {selectedSadaqah.vipps}</p>
 							<p><strong>Kontonummer:</strong> {selectedSadaqah.kontonummer}</p>
 							<p>
@@ -261,7 +264,7 @@
 		.container {
 			background-color: var(--white);
 			border-radius: 15px;
-			width: 80%;
+			width: 90%;
 			max-width: 600px;
 			box-shadow: 5px 5px 12px 0 rgba(0, 0, 0, 0.3);
 			padding: 20px;
@@ -330,6 +333,13 @@
 					color: var(--green-primary);
 					text-decoration: underline;
 					cursor: pointer;
+				}
+
+				.scrollable-description {
+					max-height: 25vh; /* Adjust the height as needed */
+					overflow-y: auto; /* Enable vertical scrolling */
+					padding-right: 10px; /* Add padding to avoid content hitting the scroll bar */
+					margin-bottom: 10px; /* Add space below */
 				}
 			}
 		}

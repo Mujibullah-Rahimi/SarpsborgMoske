@@ -30,7 +30,7 @@
 			</div>
 			<div class="navbar-menu">
 				<ul>
-					<li><p><a href="/dashboard">Administrasjonpanel</a></p></li>
+					<li><p><a href="/dashboard">Dashbord</a></p></li>
 					<li><p><a href="/dashboard/bønnetider">Bønnetider</a></p></li>
 					<li><p><a href="/dashboard/veldedigheter">Veldedigheter</a></p></li>
 				</ul>
